@@ -1,10 +1,13 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixos-shell.url = "github:Mic92/nixos-shell";
+  inputs.nixos-shell.inputs.nixpkgs.follows = "nixpkgs";
   inputs.utils.url = "github:numtide/flake-utils";
 
   outputs =
     { self
     , nixpkgs
+    , nixos-shell
     , utils
     }:
     let
@@ -41,12 +44,28 @@
             ];
           };
 
+          mkVM =
+            num:
+            nixpkgs.lib.makeOverridable nixpkgs.lib.nixosSystem {
+              inherit system pkgs;
+
+              modules = [
+                ((import ./common/mkvm.nix) num)
+                nixos-shell.nixosModules.nixos-shell
+              ];
+            };
+
+          exp-vm1 = mkVM 1;
+          exp-vm2 = mkVM 2;
+
           exp-shell = import ./common/shell.nix { inherit pkgs; };
 
         in
         {
           inherit exp-shell;
           devShell.default = import ./shell.nix;
+          exp-vm1 = exp-vm1.config.system.build.vm;
+          exp-vm2 = exp-vm2.config.system.build.vm;
         }
       );
     };

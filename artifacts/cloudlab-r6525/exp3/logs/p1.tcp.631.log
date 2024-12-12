@@ -1,0 +1,26 @@
+EAL: Detected CPU lcores: 128
+EAL: Detected NUMA nodes: 2
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/p1/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+app-ndpiptest: connected
+ndpip_rx_thread: avg_burst=0.017503; avg_replies=0.000274; pps=1105921.813099;
+pps=4921150; bps=24841968837;
+ndpip_rx_thread: avg_burst=0.676659; avg_replies=0.010573; pps=4968254.179527;
+pps=4988960; bps=25184270411;
+ndpip_rx_thread: avg_burst=0.669696; avg_replies=0.010464; pps=4998013.007426;
+pps=4998314; bps=25231491531;
+pps=4994834; bps=25213926785;
+ndpip_rx_thread: avg_burst=0.669696; avg_replies=0.010464; pps=4996318.660283;
+pps=5004749; bps=25263973844;
+ndpip_rx_thread: avg_burst=0.657408; avg_replies=0.010272; pps=5003813.389920;
+pps=4999975; bps=25239878722;
+ndpip_rx_thread: avg_burst=0.657818; avg_replies=0.010278; pps=5000568.105743;
+pps=5002018; bps=25250187812;
+pps=5003956; bps=25259972441;
+ndpip_rx_thread: avg_burst=0.651264; avg_replies=0.010176; pps=5003214.214666;
+pps=5000609; bps=25243077746;
+ndpip_rx_thread: avg_burst=0.651264; avg_replies=0.010176; pps=4993276.185414;
+pps=4992124; bps=25200242185;
+

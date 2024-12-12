@@ -1,0 +1,64 @@
+EAL: Detected CPU lcores: 10
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Using IOMMU type 1 (Type 1)
+EAL: Probe PCI driver: net_bnxt (14e4:d802) device: 0000:11:00.0 (socket 0)
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=0; bps=0; connections=0;
+pps=49602; bps=579354821; connections=954;
+ndpip_rx_thread: avg_burst=0.009794; avg_replies=0.001566; pps=143727.848828; burst_tsc=91.137752;
+pps=1726067; bps=20160471716; connections=1024;
+ndpip_rx_thread: avg_burst=1.832371; avg_replies=0.745450; pps=2031134.900066; burst_tsc=1507.444419;
+pps=2031802; bps=23731457567; connections=1024;
+ndpip_rx_thread: avg_burst=2.124985; avg_replies=1.029419; pps=2031811.465790; burst_tsc=1751.564352;
+pps=2031002; bps=23722108187; connections=1024;
+ndpip_rx_thread: avg_burst=2.103427; avg_replies=1.024406; pps=2030997.366132; burst_tsc=1734.220447;
+pps=2031725; bps=23730551088; connections=1024;
+ndpip_rx_thread: avg_burst=2.112616; avg_replies=1.029529; pps=2031723.705308; burst_tsc=1741.246559;
+pps=2031070; bps=23722904051; connections=1024;
+ndpip_rx_thread: avg_burst=2.102460; avg_replies=1.024708; pps=2031126.723511; burst_tsc=1733.282274;
+pps=2031748; bps=23730824263; connections=1024;
+ndpip_rx_thread: avg_burst=2.109196; avg_replies=1.029440; pps=2031730.954184; burst_tsc=1738.394023;
+pps=2031152; bps=23723863328; connections=1024;
+ndpip_rx_thread: avg_burst=2.098561; avg_replies=1.024010; pps=2031141.539652; burst_tsc=1730.002263;
+pps=2031753; bps=23730875351; connections=1024;
+ndpip_rx_thread: avg_burst=2.108017; avg_replies=1.028631; pps=2031717.795881; burst_tsc=1737.388834;
+pps=2031100; bps=23723257759; connections=1024;
+ndpip_rx_thread: avg_burst=2.096925; avg_replies=1.024089; pps=2031134.705034; burst_tsc=1728.636558;
+pps=2031707; bps=23730346781; connections=1024;
+ndpip_rx_thread: avg_burst=2.098610; avg_replies=1.028410; pps=2031717.184465; burst_tsc=1729.527676;
+pps=2031052; bps=23722695167; connections=1024;
+ndpip_rx_thread: avg_burst=2.095800; avg_replies=1.023281; pps=2031061.714300; burst_tsc=1727.736906;
+pps=2031646; bps=23729635210; connections=1024;
+ndpip_rx_thread: avg_burst=2.105630; avg_replies=1.028013; pps=2031647.964299; burst_tsc=1735.457136;
+pps=2031034; bps=23722477408; connections=1024;
+ndpip_rx_thread: avg_burst=2.095394; avg_replies=1.022908; pps=2031032.330759; burst_tsc=1727.429534;
+pps=2031711; bps=23730385321; connections=1024;
+ndpip_rx_thread: avg_burst=2.106424; avg_replies=1.028736; pps=2031721.910249; burst_tsc=1736.068016;
+pps=2031149; bps=23723826602; connections=1024;
+ndpip_rx_thread: avg_burst=2.097090; avg_replies=1.023577; pps=2031138.222831; burst_tsc=1728.768053;
+pps=2031749; bps=23730832141; connections=1024;
+ndpip_rx_thread: avg_burst=2.106431; avg_replies=1.028536; pps=2031708.121675; burst_tsc=1736.082329;
+pps=2031069; bps=23722893998; connections=1024;
+ndpip_rx_thread: avg_burst=2.094141; avg_replies=1.022976; pps=2031096.833161; burst_tsc=1726.334645;
+pps=2031703; bps=23730299711; connections=1024;
+ndpip_rx_thread: avg_burst=2.097171; avg_replies=1.027980; pps=2031694.615356; burst_tsc=1728.339502;

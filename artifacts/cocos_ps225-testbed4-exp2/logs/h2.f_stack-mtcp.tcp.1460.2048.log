@@ -1,0 +1,110 @@
+EAL: Probing VFIO support...
+EAL: VFIO support initialized
+---------------------------------------------------------------------------------
+Loading mtcp configuration from : perf.conf
+Loading interface setting
+EAL: Detected 10 lcore(s)
+EAL: Detected 1 NUMA nodes
+EAL: Auto-detected process type: PRIMARY
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: No free hugepages reported in hugepages-2048kB
+EAL: PCI device 0000:11:00.0 on NUMA socket 0
+EAL:   probe driver: 14e4:d802 net_bnxt
+EAL:   using IOMMU type 1 (Type 1)
+bnxt_dev_init(): Broadcom NetXtreme driver bnxt
+
+bnxt_hwrm_ver_get(): 1.9.2:214.1.15
+bnxt_hwrm_ver_get(): Driver HWRM version: 1.9.2
+bnxt_dev_init(): bnxt found at mem 92680000, node addr 0x7f9740000000M
+Total number of attached devices: 1
+Interface name: dpdk0
+Configurations:
+Number of CPU cores available: 1
+Number of CPU cores to use: 1
+Maximum number of concurrency per core: 10000
+Maximum number of preallocated buffers per core: 10000
+Receive buffer size: 102400
+Send buffer size: 102400
+TCP timeout seconds: 30
+TCP timewait seconds: 0
+NICs to print statistics: dpdk0
+---------------------------------------------------------------------------------
+Initializing port 0... Ethdev port_id=0 tx_queue_id=0, new added offloads 0x8011 must be within pre-queue offload capabilities 0x0 in rte_eth_tx_queue_setup()
+
+bnxt_print_link_info(): Port 0 Link Down
+Interfaces:
+name: dpdk0, ifindex: 0, hwaddr: B0:26:28:84:9E:44, ipaddr: 10.1.1.2, netmask: 255.255.255.0
+Number of NIC queues: 1
+---------------------------------------------------------------------------------
+Loading routing configurations from : config/route.conf
+fopen: No such file or directory
+Skip loading static routing table
+Routes:
+Destination: 10.1.1.0/24, Mask: 255.255.255.0, Masked: 10.1.1.0, Route: ifdx-0
+---------------------------------------------------------------------------------
+Loading ARP table from : config/arp.conf
+ARP Table:
+IP addr: 10.1.1.1, dst_hwaddr: B0:26:28:84:9E:6C
+---------------------------------------------------------------------------------
+bnxt_print_link_info(): Port 0 Link Up - speed 25000 Mbps - full-duplex
+done: 
+bnxt_flow_ctrl_set_op(): Flow Control Settings cannot be modified
+
+Checking link statusdone
+Port 0 Link Up - speed 25000 Mbps - full-duplex
+[dpdk_load_module: 761] Failed to set flow control info!: errno: -95
+CPU 1: initialization finished.
+[mtcp_create_context:1352] CPU 1 is now the master thread.
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=0; bps=0; connections=0;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=463969; bps=5419159667; connections=1339;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=674520; bps=7878398637; connections=1639;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=719581; bps=8404711792; connections=1639;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=704899; bps=8233221159; connections=1836;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=848287; bps=9907997299; connections=1836;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=868125; bps=10139701455; connections=1836;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=885059; bps=10337498842; connections=1836;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=867250; bps=10129485537; connections=1967;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=877505; bps=10249262023; connections=1967;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=755440; bps=8823547172; connections=1967;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=707685; bps=8265769185; connections=2041;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=713025; bps=8328137992; connections=2048;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=716993; bps=8374485685; connections=2048;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=840758; bps=9820060902; connections=2048;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=868612; bps=10145388179; connections=2048;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=854866; bps=9984841096; connections=2048;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+pps=859033; bps=10033515700; connections=2048;
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)

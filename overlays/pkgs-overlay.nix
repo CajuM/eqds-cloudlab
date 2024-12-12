@@ -8,6 +8,11 @@
 
   in
   rec {
+    eqdsshim = self.callPackage ../pkgs/eqdsshim {
+      stdenv = stdenv;
+      dpdk = dpdk;
+    };
+
     libndpip = self.callPackage ../pkgs/libndpip {
       #stdenv = dbgStdenv;
       stdenv = stdenv;

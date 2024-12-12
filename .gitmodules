@@ -6,3 +6,7 @@
 	path = pkgs/libndpip-perf/src
 	url = git@github.com:cs-pub-ro/lib-ndpip.git
 	branch = perf
+[submodule "pkgs/eqdsshim/src"]
+	path = pkgs/eqdsshim/src
+	url = git@github.com:CajuM/ndpshim.git
+	branch = mcaju
