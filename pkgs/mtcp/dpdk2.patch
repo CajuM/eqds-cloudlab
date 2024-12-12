@@ -1,0 +1,51 @@
+diff --git a/drivers/net/mlx5/Makefile b/drivers/net/mlx5/Makefile
+index 8a5229e619..691639c0d4 100644
+--- a/drivers/net/mlx5/Makefile
++++ b/drivers/net/mlx5/Makefile
+@@ -147,11 +147,6 @@ mlx5_autoconf.h.new: $(RTE_SDK)/buildtools/auto-config-h.sh
+ 		/usr/include/linux/ethtool.h \
+ 		enum ETHTOOL_LINK_MODE_100000baseKR4_Full_BIT \
+ 		$(AUTOCONF_OUTPUT)
+-	$Q sh -- '$<' '$@' \
+-		HAVE_IBV_DEVICE_COUNTERS_SET_SUPPORT \
+-		infiniband/verbs.h \
+-		enum IBV_FLOW_SPEC_ACTION_COUNT \
+-		$(AUTOCONF_OUTPUT)
+ 
+ # Create mlx5_autoconf.h or update it in case it differs from the new one.
+ 
+diff --git a/drivers/net/mlx5/mlx5.c b/drivers/net/mlx5/mlx5.c
+index c933e274fe..0ed4cc7efa 100644
+--- a/drivers/net/mlx5/mlx5.c
++++ b/drivers/net/mlx5/mlx5.c
+@@ -1189,11 +1189,13 @@ mlx5_pci_probe(struct rte_pci_driver *pci_drv __rte_unused,
+ 		/* Supported Verbs flow priority number detection. */
+ 		if (verb_priorities == 0)
+ 			verb_priorities = mlx5_get_max_verbs_prio(eth_dev);
++		/*
+ 		if (verb_priorities < MLX5_VERBS_FLOW_PRIO_8) {
+ 			DRV_LOG(ERR, "port %u wrong Verbs flow priorities: %u",
+ 				eth_dev->data->port_id, verb_priorities);
+ 			goto port_error;
+ 		}
++		*/
+ 		priv->config.max_verbs_prio = verb_priorities;
+ 		/*
+ 		 * Once the device is added to the list of memory event
+diff --git a/drivers/net/mlx5/mlx5_flow.c b/drivers/net/mlx5/mlx5_flow.c
+index 994be05be6..fcaf54a174 100644
+--- a/drivers/net/mlx5/mlx5_flow.c
++++ b/drivers/net/mlx5/mlx5_flow.c
+@@ -39,12 +39,6 @@
+ #define MLX5_IPV6 6
+ #define MLX5_GRE 47
+ 
+-#ifndef HAVE_IBV_DEVICE_COUNTERS_SET_SUPPORT
+-struct ibv_flow_spec_counter_action {
+-	int dummy;
+-};
+-#endif
+-
+ /* Dev ops structure defined in mlx5.c */
+ extern const struct eth_dev_ops mlx5_dev_ops;
+ extern const struct eth_dev_ops mlx5_dev_ops_isolate;

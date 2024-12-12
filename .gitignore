@@ -1,0 +1,11 @@
+*.qcow2
+/result
+/result-*
+/out/
+/.direnv/
+/.cache/
+*.ko
+/max-*.png
+/max-*.txt
+/max-*.tex
+**/__pycache__/

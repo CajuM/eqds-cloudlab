@@ -1,0 +1,11 @@
+pkill -9 eqds-tcp-perf
+pkill -9 f-stack-perf
+pkill -9 mtcp-perf
+pkill -9 linux-perf
+
+rm -rf /tmp/dpdk{1,2}
+rm -rf /tmp/devshell
+rm -rf config perf.conf log_1
+rm -rf eqds-cloudlab
+
+rmmod -f dpdk_iface || true

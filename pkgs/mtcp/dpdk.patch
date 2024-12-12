@@ -1,0 +1,38 @@
+diff --git a/lib/librte_eal/common/include/rte_string_fns.h b/lib/librte_eal/common/include/rte_string_fns.h
+index 97597a1483..adaf0cec44 100644
+--- a/lib/librte_eal/common/include/rte_string_fns.h
++++ b/lib/librte_eal/common/include/rte_string_fns.h
+@@ -60,20 +60,7 @@ rte_strlcpy(char *dst, const char *src, size_t size)
+ 
+ /* pull in a strlcpy function */
+ #ifdef RTE_EXEC_ENV_BSDAPP
+-#include <string.h>
+-#ifndef __BSD_VISIBLE /* non-standard functions are hidden */
+-#define strlcpy(dst, src, size) rte_strlcpy(dst, src, size)
+-#endif
+-
+-
+-#else /* non-BSD platforms */
+-#ifdef RTE_USE_LIBBSD
+ #include <bsd/string.h>
+-
+-#else /* no BSD header files, create own */
+-#define strlcpy(dst, src, size) rte_strlcpy(dst, src, size)
+-
+-#endif /* RTE_USE_LIBBSD */
+ #endif /* BSDAPP */
+ 
+ #ifdef __cplusplus
+diff --git a/mk/toolchain/gcc/rte.vars.mk b/mk/toolchain/gcc/rte.vars.mk
+index 7e4531bab3..b70da05f7c 100644
+--- a/mk/toolchain/gcc/rte.vars.mk
++++ b/mk/toolchain/gcc/rte.vars.mk
+@@ -59,6 +59,8 @@ ifeq ($(CONFIG_RTE_ARCH_STRICT_ALIGN),y)
+ WERROR_FLAGS += -Wno-error=cast-align
+ endif
+ 
++WERROR_FLAGS += -Wno-error=address-of-packed-member
++
+ # process cpu flags
+ include $(RTE_SDK)/mk/toolchain/$(RTE_TOOLCHAIN)/rte.toolchain-compat.mk
+ 

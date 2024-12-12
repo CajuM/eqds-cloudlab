@@ -1,0 +1,348 @@
+diff --git a/mtcp/src/api.c b/mtcp/src/api.c
+index c53714bc..a52b993c 100644
+--- a/mtcp/src/api.c
++++ b/mtcp/src/api.c
+@@ -46,7 +46,7 @@ GetMTCPManager(mctx_t mctx)
+ 		return NULL;
+ 	}
+ 
+-	if (mctx->cpu < 0 || mctx->cpu >= num_cpus) {
++	if (mctx->cpu <= 0 || mctx->cpu > num_cpus) {
+ 		errno = EINVAL;
+ 		return NULL;
+ 	}
+diff --git a/mtcp/src/core.c b/mtcp/src/core.c
+index b06c4d73..7020bd22 100644
+--- a/mtcp/src/core.c
++++ b/mtcp/src/core.c
+@@ -1273,13 +1273,6 @@ mtcp_create_context(int cpu)
+ 	mctx_t mctx;
+ 	int ret;
+ 
+-	if (cpu >=  CONFIG.num_cores) {
+-		TRACE_ERROR("Failed initialize new mtcp context. "
+-			    "Requested cpu id %d exceed the number of cores %d configured to use.\n",
+-			    cpu, CONFIG.num_cores);
+-		return NULL;
+-	}
+-
+         /* check if mtcp_create_context() was already initialized */
+         if (g_logctx[cpu] != NULL) {
+                 TRACE_ERROR("%s was already initialized before!\n",
+diff --git a/mtcp/src/dpdk_module.c b/mtcp/src/dpdk_module.c
+index 76d6da8c..50b4c1dc 100644
+--- a/mtcp/src/dpdk_module.c
++++ b/mtcp/src/dpdk_module.c
+@@ -116,15 +116,7 @@ static struct rte_eth_conf port_conf = {
+ 		.max_rx_pkt_len = 	RTE_ETHER_MAX_LEN,
+ #endif
+ #if RTE_VERSION > RTE_VERSION_NUM(17, 8, 0, 0)
+-		.offloads	=	(
+-#if RTE_VERSION < RTE_VERSION_NUM(18, 5, 0, 0)
+-					 DEV_RX_OFFLOAD_CRC_STRIP |
+-#endif /* !18.05 */
+-					 DEV_RX_OFFLOAD_CHECKSUM
+-#ifdef ENABLELRO
+-					 | DEV_RX_OFFLOAD_TCP_LRO
+-#endif
+-					 ),
++		.offloads	=	0,
+ #endif /* !17.08 */
+ 		.split_hdr_size = 	0,
+ #if RTE_VERSION < RTE_VERSION_NUM(18, 5, 0, 0)
+@@ -246,18 +233,18 @@ dpdk_init_handle(struct mtcp_thread_context *ctxt)
+ 		exit(EXIT_FAILURE);
+ 	}
+ 
+-	sprintf(mempool_name, "mbuf_pool-%d", ctxt->cpu);
++	sprintf(mempool_name, "mbuf_pool-%d", ctxt->cpu - 1);
+ 	dpc = (struct dpdk_private_context *)ctxt->io_private_context;
+-	dpc->pktmbuf_pool = pktmbuf_pool[ctxt->cpu];
++	dpc->pktmbuf_pool = pktmbuf_pool[ctxt->cpu - 1];
+ 
+ 	/* set wmbufs correctly */
+ 	for (j = 0; j < num_devices_attached; j++) {
+ 		/* Allocate wmbufs for each registered port */
+ 		for (i = 0; i < MAX_PKT_BURST; i++) {
+-			dpc->wmbufs[j].m_table[i] = rte_pktmbuf_alloc(pktmbuf_pool[ctxt->cpu]);
++			dpc->wmbufs[j].m_table[i] = rte_pktmbuf_alloc(pktmbuf_pool[ctxt->cpu - 1]);
+ 			if (dpc->wmbufs[j].m_table[i] == NULL) {
+ 				TRACE_ERROR("Failed to allocate %d:wmbuf[%d] on device %d!\n",
+-					    ctxt->cpu, i, j);
++					    ctxt->cpu - 1, i, j);
+ 				exit(EXIT_FAILURE);
+ 			}
+ 		}
+@@ -282,7 +269,7 @@ dpdk_init_handle(struct mtcp_thread_context *ctxt)
+ 						      socket)) == NULL) {
+ 		RTE_LOG(ERR, IP_RSMBL, "ip_frag_tbl_create(%u) on "
+ 			"lcore: %u for queue: %u failed\n",
+-			max_flows, ctxt->cpu, ctxt->cpu);
++			max_flows, ctxt->cpu, ctxt->cpu - 1);
+ 		exit(EXIT_FAILURE);
+ 	}
+ #endif	/* !IP_DEFRAG */
+@@ -347,7 +334,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+ 		if (abs(mtcp->cur_ts - dpc->cur_ts) >= 1000 &&
+ 		    likely(dpc->fd >= 0)) {
+ 			/* rte_get_stats is global func, use only for 1 core */
+-			if (ctxt->cpu == 0) {
++			if ((ctxt->cpu - 1) == 0) {
+ 				rte_eth_stats_get(portid, &stats);
+ 				ss.rmiss = stats.imissed;
+ 				ss.rerr = stats.ierrors;
+@@ -359,20 +346,20 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+ 			ss.tx_bytes = mtcp->nstat.tx_bytes[ifidx];
+ 			ss.rx_pkts = mtcp->nstat.rx_packets[ifidx];
+ 			ss.rx_bytes = mtcp->nstat.rx_bytes[ifidx];
+-			ss.qid = ctxt->cpu;
++			ss.qid = ctxt->cpu - 1;
+ 			ss.dev = portid;
+ 			/* pass the info now */
+ 			if (ioctl(dpc->fd, SEND_STATS, &ss) == -1)
+ 				TRACE_ERROR("Can't update iface stats!\n");
+ 			dpc->cur_ts = mtcp->cur_ts;
+-			if (ctxt->cpu == 0)
++			if ((ctxt->cpu - 1) == 0)
+ 				rte_eth_stats_reset(portid);
+ 		}
+ #endif /* !ENABLE_STATS_IOCTL */
+ #endif
+ 		do {
+ 			/* tx cnt # of packets */
+-			ret = rte_eth_tx_burst(portid, ctxt->cpu,
++			ret = rte_eth_tx_burst(portid, ctxt->cpu - 1,
+ 					       pkts, cnt);
+ 			pkts += ret;
+ 			cnt -= ret;
+@@ -381,11 +368,11 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+ 
+ 		/* time to allocate fresh mbufs for the queue */
+ 		for (i = 0; i < dpc->wmbufs[ifidx].len; i++) {
+-			dpc->wmbufs[ifidx].m_table[i] = rte_pktmbuf_alloc(pktmbuf_pool[ctxt->cpu]);
++			dpc->wmbufs[ifidx].m_table[i] = rte_pktmbuf_alloc(pktmbuf_pool[ctxt->cpu - 1]);
+ 			/* error checking */
+ 			if (unlikely(dpc->wmbufs[ifidx].m_table[i] == NULL)) {
+ 				TRACE_ERROR("Failed to allocate %d:wmbuf[%d] on device %d!\n",
+-					    ctxt->cpu, i, ifidx);
++					    ctxt->cpu - 1, i, ifidx);
+ 				exit(EXIT_FAILURE);
+ 			}
+ 		}
+@@ -461,7 +448,7 @@ dpdk_recv_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+ 	}
+ 
+ 	int portid = CONFIG.eths[ifidx].ifindex;
+-	ret = rte_eth_rx_burst((uint8_t)portid, ctxt->cpu,
++	ret = rte_eth_rx_burst((uint8_t)portid, ctxt->cpu - 1,
+ 			       dpc->pkts_burst, MAX_PKT_BURST);
+ #ifdef RX_IDLE_ENABLE
+ 	dpc->rx_idle = (likely(ret != 0)) ? 0 : dpc->rx_idle + 1;
+@@ -534,12 +521,14 @@ dpdk_get_rptr(struct mtcp_thread_context *ctxt, int ifidx, int index, uint16_t *
+ 	dpc->rmbufs[ifidx].m_table[index] = m;
+ 
+ 	/* verify checksum values from ol_flags */
++	/*
+ 	if ((m->ol_flags & (PKT_RX_L4_CKSUM_BAD | PKT_RX_IP_CKSUM_BAD)) != 0) {
+ 		TRACE_ERROR("%s(%p, %d, %d): mbuf with invalid checksum: "
+ 			    "%p(%lu);\n",
+ 			    __func__, ctxt, ifidx, index, m, m->ol_flags);
+ 		pktbuf = NULL;
+ 	}
++	*/
+ #ifdef ENABLELRO
+ 	dpc->cur_rx_m = m;
+ #endif /* ENABLELRO */
+diff --git a/mtcp/src/include/logger.h b/mtcp/src/include/logger.h
+index 19e83f71..8e0d7f62 100644
+--- a/mtcp/src/include/logger.h
++++ b/mtcp/src/include/logger.h
+@@ -6,10 +6,10 @@
+ #define LOG_BUFF_SIZE (256*1024)
+ #define NUM_LOG_BUFF (100)
+ 
+-enum {
++enum log_thread_state {
+ 	IDLE_LOGT,
+ 	ACTIVE_LOGT
+-} log_thread_state;
++};
+ 
+ typedef struct log_buff
+ {
+diff --git a/mtcp/src/io_module.c b/mtcp/src/io_module.c
+index 198a9887..6713a6f2 100644
+--- a/mtcp/src/io_module.c
++++ b/mtcp/src/io_module.c
+@@ -48,7 +48,6 @@
+ /*----------------------------------------------------------------------------*/
+ io_module_func *current_iomodule_func = &dpdk_module_func;
+ #ifndef DISABLE_DPDK
+-enum rte_proc_type_t eal_proc_type_detect(void);
+ /**
+  * DPDK's RTE consumes some huge pages for internal bookkeeping.
+  * Therefore, it is not always safe to reserve the exact amount
+@@ -254,8 +253,6 @@ SetNetEnv(char *dev_name_list, char *port_stat_list)
+ 	} else if (current_iomodule_func == &dpdk_module_func) {
+ #ifndef DISABLE_DPDK
+ 		int cpu = CONFIG.num_cores;
+-		mpz_t _cpumask;
+-		char cpumaskbuf[32] = "";
+ 		char mem_channels[8] = "";
+ 		char socket_mem_str[32] = "";
+ 		// int i;
+@@ -266,20 +263,6 @@ SetNetEnv(char *dev_name_list, char *port_stat_list)
+ 		static struct rte_ether_addr ports_eth_addr[RTE_MAX_ETHPORTS]; 
+ #endif
+ 
+-		/* STEP 1: first determine CPU mask */
+-		mpz_init(_cpumask);
+-
+-		if (!mpz_cmp(_cpumask, CONFIG._cpumask)) {
+-			/* get the cpu mask */
+-			for (ret = 0; ret < cpu; ret++)
+-				mpz_setbit(_cpumask, ret);
+-			
+-			gmp_sprintf(cpumaskbuf, "%ZX", _cpumask);
+-		} else
+-			gmp_sprintf(cpumaskbuf, "%ZX", CONFIG._cpumask);
+-		
+-		mpz_clear(_cpumask);
+-
+ 		/* STEP 2: determine memory channels per socket */
+ 		/* get the mem channels per socket */
+ 		if (CONFIG.num_mem_ch == 0) {
+@@ -305,8 +288,8 @@ SetNetEnv(char *dev_name_list, char *port_stat_list)
+ 		/* initialize the rte env, what a waste of implementation effort! */
+ 		int argc = 6;//8;
+ 		char *argv[RTE_ARGC_MAX] = {"",
+-					    "-c",
+-					    cpumaskbuf,
++					    "-l",
++					    "0,1",
+ 					    "-n",
+ 					    mem_channels,
+ #if 0
+@@ -458,7 +441,7 @@ SetNetEnv(char *dev_name_list, char *port_stat_list)
+ 		}
+ #endif
+ 		/* check if process is primary or secondary */
+-		CONFIG.multi_process_is_master = (eal_proc_type_detect() == RTE_PROC_PRIMARY) ?
++		CONFIG.multi_process_is_master = (rte_eal_process_type() == RTE_PROC_PRIMARY) ?
+ 			1 : 0;
+ 		
+ #endif /* !DISABLE_DPDK */
+diff --git a/mtcp/src/ip_in.c b/mtcp/src/ip_in.c
+index c96f6bbf..87ef72bf 100644
+--- a/mtcp/src/ip_in.c
++++ b/mtcp/src/ip_in.c
+@@ -28,11 +28,11 @@ ProcessIPv4Packet(mtcp_manager_t mtcp, uint32_t cur_ts,
+ #ifndef DISABLE_HWCSUM
+ 	if (mtcp->iom->dev_ioctl != NULL)
+ 		rc = mtcp->iom->dev_ioctl(mtcp->ctx, ifidx, PKT_RX_IP_CSUM, iph);
+-	if (rc == -1 && ip_fast_csum(iph, iph->ihl))
++	if (rc == -1 && 0)
+ 		return ERROR;
+ #else
+ 	UNUSED(rc);
+-	if (ip_fast_csum(iph, iph->ihl))
++	if (0)
+ 		return ERROR;
+ #endif
+ 
+diff --git a/mtcp/src/ip_out.c b/mtcp/src/ip_out.c
+index d4482d2b..5fd644b9 100644
+--- a/mtcp/src/ip_out.c
++++ b/mtcp/src/ip_out.c
+@@ -94,10 +94,10 @@ IPOutputStandalone(struct mtcp_manager *mtcp, uint8_t protocol,
+ 	}
+ 	/* otherwise calculate IP checksum in S/W */
+ 	if (rc == -1)
+-		iph->check = ip_fast_csum(iph, iph->ihl);
++		iph->check = 0;
+ #else
+ 	UNUSED(rc);
+-	iph->check = ip_fast_csum(iph, iph->ihl);
++	iph->check = 0;
+ #endif
+ 
+ 	return (uint8_t *)(iph + 1);
+@@ -166,10 +166,10 @@ IPOutput(struct mtcp_manager *mtcp, tcp_stream *stream, uint16_t tcplen)
+ 	}
+ 	/* otherwise calculate IP checksum in S/W */
+ 	if (rc == -1)
+-		iph->check = ip_fast_csum(iph, iph->ihl);
++		iph->check = 0;
+ #else
+ 	UNUSED(rc);
+-	iph->check = ip_fast_csum(iph, iph->ihl);
++	iph->check = 0;
+ #endif
+ 	return (uint8_t *)(iph + 1);
+ }
+diff --git a/mtcp/src/rss.c b/mtcp/src/rss.c
+index c4d4b8df..ff0282e9 100644
+--- a/mtcp/src/rss.c
++++ b/mtcp/src/rss.c
+@@ -110,6 +110,6 @@ GetRSSCPUCore(in_addr_t sip, in_addr_t dip,
+ 		masked = GetRSSHash(sip, dip, sp, dp) & RSS_BIT_MASK_IXGBE;
+ 	}
+ 
+-	return (masked % num_queues);
++	return (masked % num_queues) + 1;
+ }
+ /*-------------------------------------------------------------------*/ 
+diff --git a/mtcp/src/tcp_in.c b/mtcp/src/tcp_in.c
+index 5d984a7e..471ccd3b 100644
+--- a/mtcp/src/tcp_in.c
++++ b/mtcp/src/tcp_in.c
+@@ -18,7 +18,7 @@
+ #define MAX(a, b) ((a)>(b)?(a):(b))
+ #define MIN(a, b) ((a)<(b)?(a):(b))
+ 
+-#define VERIFY_RX_CHECKSUM TRUE
++#define VERIFY_RX_CHECKSUM FALSE
+ #define RECOVERY_AFTER_LOSS TRUE
+ #define SELECTIVE_WRITE_EVENT_NOTIFY TRUE
+ 
+diff --git a/mtcp/src/tcp_out.c b/mtcp/src/tcp_out.c
+index 8348357d..0134f314 100644
+--- a/mtcp/src/tcp_out.c
++++ b/mtcp/src/tcp_out.c
+@@ -208,9 +208,7 @@ SendTCPPacketStandalone(struct mtcp_manager *mtcp,
+ 	UNUSED(is_external);
+ #endif
+ 	if (rc == -1)
+-		tcph->check = TCPCalcChecksum((uint16_t *)tcph, 
+-					      TCP_HEADER_LEN + optlen + payloadlen,
+-					      saddr, daddr);
++		tcph->check = 0;
+ #endif
+ 
+ 	if (tcph->syn || tcph->fin) {
+@@ -327,9 +325,7 @@ SendTCPPacket(struct mtcp_manager *mtcp, tcp_stream *cur_stream,
+ 					  PKT_TX_TCPIP_CSUM, NULL);
+ #endif
+ 	if (rc == -1)
+-		tcph->check = TCPCalcChecksum((uint16_t *)tcph, 
+-					      TCP_HEADER_LEN + optlen + payloadlen, 
+-					      cur_stream->saddr, cur_stream->daddr);
++		tcph->check = 0;
+ #endif
+ 	
+ 	cur_stream->snd_nxt += payloadlen;
+diff --git a/mtcp/src/tcp_stream.c b/mtcp/src/tcp_stream.c
+index 6bf89ffb..4371bfe1 100644
+--- a/mtcp/src/tcp_stream.c
++++ b/mtcp/src/tcp_stream.c
+@@ -301,7 +301,9 @@ CreateTCPStream(mtcp_manager_t mtcp, socket_map_t socket, int type,
+ 	stream->on_rto_idx = -1;
+ 	
+ 	stream->sndvar->ip_id = 0;
+-	stream->sndvar->mss = TCP_DEFAULT_MSS;
++	char *tmp_mss = getenv("MTCP_MSS");
++	int mss = tmp_mss == NULL ? 0 : atoi(tmp_mss);
++	stream->sndvar->mss = mss == 0 ? TCP_DEFAULT_MSS : mss;
+ 	stream->sndvar->wscale_mine = TCP_DEFAULT_WSCALE;
+ 	stream->sndvar->wscale_peer = 0;
+ 	stream->sndvar->nif_out = GetOutputInterface(stream->daddr, &is_external);
