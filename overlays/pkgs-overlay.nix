@@ -8,20 +8,36 @@
 
   in
   rec {
-    lib-ndpip = self.callPackage ../pkgs/lib-ndpip {
+    libndpip = self.callPackage ../pkgs/libndpip {
       #stdenv = dbgStdenv;
       stdenv = stdenv;
       dpdk = dpdk;
     };
-    eqds-tcp-perf = self.callPackage ../pkgs/eqds-tcp-perf {
-      inherit lib-ndpip;
+    libndpip-kiss = self.callPackage ../pkgs/libndpip-kiss {
+      inherit libndpip;
       #stdenv = dbgStdenv;
       stdenv = stdenv;
-      dpdk = lib-ndpip.dpdk;
+      dpdk = libndpip.dpdk;
     };
 
+    libndpip-perf = self.callPackage ../pkgs/libndpip-perf {
+      #stdenv = dbgStdenv;
+      stdenv = stdenv;
+      dpdk = dpdk;
+    };
+    libndpip-perf-kiss' = self.callPackage ../pkgs/libndpip-kiss {
+      #stdenv = dbgStdenv;
+      stdenv = stdenv;
+      dpdk = libndpip.dpdk;
+      libndpip = libndpip-perf;
+    };
+    libndpip-perf-kiss = self.runCommand "copy" { } ''
+      mkdir -p $out/bin
+      cp ${libndpip-perf-kiss'}/bin/libndpip-kiss $out/bin/
+    '';
+
     f-stack = self.callPackage ../pkgs/f-stack { inherit stdenv; };
-    f-stack-perf = self.callPackage ../pkgs/f-stack-perf {
+    f-stack-kiss = self.callPackage ../pkgs/f-stack-kiss {
       inherit stdenv f-stack;
       dpdk = f-stack.dpdk;
     };
@@ -34,12 +50,12 @@
     dpdk-iface-kmod-vm = self.callPackage ../pkgs/dpdk-iface/kmod.nix {
       kernel = self.myLinuxPackages.kernel;
     };
-    mtcp-perf = self.callPackage ../pkgs/mtcp-perf {
+    mtcp-kiss = self.callPackage ../pkgs/mtcp-kiss {
       inherit stdenv mtcp;
       dpdk = mtcp.dpdk;
     };
 
-    linux-perf = self.callPackage ../pkgs/linux-perf {
+    linux-kiss = self.callPackage ../pkgs/linux-kiss {
       inherit stdenv;
     };
 

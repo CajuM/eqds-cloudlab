@@ -1,5 +1,5 @@
 diff --git a/mtcp/src/api.c b/mtcp/src/api.c
-index c53714bc..a52b993c 100644
+index c53714bc..e184d3bc 100644
 --- a/mtcp/src/api.c
 +++ b/mtcp/src/api.c
 @@ -46,7 +46,7 @@ GetMTCPManager(mctx_t mctx)
@@ -11,26 +11,29 @@ index c53714bc..a52b993c 100644
  		errno = EINVAL;
  		return NULL;
  	}
+@@ -1284,7 +1284,6 @@ mtcp_recv(mctx_t mctx, int sockid, char *buf, size_t len, int flags)
+         return ret;
+ }
+ /*----------------------------------------------------------------------------*/
+-inline ssize_t
+ mtcp_read(mctx_t mctx, int sockid, char *buf, size_t len)
+ {
+ 	return mtcp_recv(mctx, sockid, buf, len, 0);
 diff --git a/mtcp/src/core.c b/mtcp/src/core.c
-index b06c4d73..7020bd22 100644
+index b06c4d73..ed93ca33 100644
 --- a/mtcp/src/core.c
 +++ b/mtcp/src/core.c
-@@ -1273,13 +1273,6 @@ mtcp_create_context(int cpu)
+@@ -1273,7 +1273,7 @@ mtcp_create_context(int cpu)
  	mctx_t mctx;
  	int ret;
  
 -	if (cpu >=  CONFIG.num_cores) {
--		TRACE_ERROR("Failed initialize new mtcp context. "
--			    "Requested cpu id %d exceed the number of cores %d configured to use.\n",
--			    cpu, CONFIG.num_cores);
--		return NULL;
--	}
--
-         /* check if mtcp_create_context() was already initialized */
-         if (g_logctx[cpu] != NULL) {
-                 TRACE_ERROR("%s was already initialized before!\n",
++	if ((cpu <= 0) || (cpu > CONFIG.num_cores)) {
+ 		TRACE_ERROR("Failed initialize new mtcp context. "
+ 			    "Requested cpu id %d exceed the number of cores %d configured to use.\n",
+ 			    cpu, CONFIG.num_cores);
 diff --git a/mtcp/src/dpdk_module.c b/mtcp/src/dpdk_module.c
-index 76d6da8c..50b4c1dc 100644
+index 76d6da8c..a8083b29 100644
 --- a/mtcp/src/dpdk_module.c
 +++ b/mtcp/src/dpdk_module.c
 @@ -116,15 +116,7 @@ static struct rte_eth_conf port_conf = {
@@ -50,7 +53,7 @@ index 76d6da8c..50b4c1dc 100644
  #endif /* !17.08 */
  		.split_hdr_size = 	0,
  #if RTE_VERSION < RTE_VERSION_NUM(18, 5, 0, 0)
-@@ -246,18 +233,18 @@ dpdk_init_handle(struct mtcp_thread_context *ctxt)
+@@ -246,18 +238,18 @@ dpdk_init_handle(struct mtcp_thread_context *ctxt)
  		exit(EXIT_FAILURE);
  	}
  
@@ -73,7 +76,7 @@ index 76d6da8c..50b4c1dc 100644
  				exit(EXIT_FAILURE);
  			}
  		}
-@@ -282,7 +269,7 @@ dpdk_init_handle(struct mtcp_thread_context *ctxt)
+@@ -282,7 +274,7 @@ dpdk_init_handle(struct mtcp_thread_context *ctxt)
  						      socket)) == NULL) {
  		RTE_LOG(ERR, IP_RSMBL, "ip_frag_tbl_create(%u) on "
  			"lcore: %u for queue: %u failed\n",
@@ -82,7 +85,7 @@ index 76d6da8c..50b4c1dc 100644
  		exit(EXIT_FAILURE);
  	}
  #endif	/* !IP_DEFRAG */
-@@ -347,7 +334,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+@@ -347,7 +339,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
  		if (abs(mtcp->cur_ts - dpc->cur_ts) >= 1000 &&
  		    likely(dpc->fd >= 0)) {
  			/* rte_get_stats is global func, use only for 1 core */
@@ -91,7 +94,7 @@ index 76d6da8c..50b4c1dc 100644
  				rte_eth_stats_get(portid, &stats);
  				ss.rmiss = stats.imissed;
  				ss.rerr = stats.ierrors;
-@@ -359,20 +346,20 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+@@ -359,20 +351,20 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
  			ss.tx_bytes = mtcp->nstat.tx_bytes[ifidx];
  			ss.rx_pkts = mtcp->nstat.rx_packets[ifidx];
  			ss.rx_bytes = mtcp->nstat.rx_bytes[ifidx];
@@ -115,7 +118,7 @@ index 76d6da8c..50b4c1dc 100644
  					       pkts, cnt);
  			pkts += ret;
  			cnt -= ret;
-@@ -381,11 +368,11 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+@@ -381,11 +373,11 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int ifidx)
  
  		/* time to allocate fresh mbufs for the queue */
  		for (i = 0; i < dpc->wmbufs[ifidx].len; i++) {
@@ -129,7 +132,7 @@ index 76d6da8c..50b4c1dc 100644
  				exit(EXIT_FAILURE);
  			}
  		}
-@@ -461,7 +448,7 @@ dpdk_recv_pkts(struct mtcp_thread_context *ctxt, int ifidx)
+@@ -461,7 +453,7 @@ dpdk_recv_pkts(struct mtcp_thread_context *ctxt, int ifidx)
  	}
  
  	int portid = CONFIG.eths[ifidx].ifindex;
@@ -138,7 +141,7 @@ index 76d6da8c..50b4c1dc 100644
  			       dpc->pkts_burst, MAX_PKT_BURST);
  #ifdef RX_IDLE_ENABLE
  	dpc->rx_idle = (likely(ret != 0)) ? 0 : dpc->rx_idle + 1;
-@@ -534,12 +521,14 @@ dpdk_get_rptr(struct mtcp_thread_context *ctxt, int ifidx, int index, uint16_t *
+@@ -534,12 +526,14 @@ dpdk_get_rptr(struct mtcp_thread_context *ctxt, int ifidx, int index, uint16_t *
  	dpc->rmbufs[ifidx].m_table[index] = m;
  
  	/* verify checksum values from ol_flags */
@@ -170,8 +173,20 @@ index 19e83f71..8e0d7f62 100644
  
  typedef struct log_buff
  {
+diff --git a/mtcp/src/include/mtcp_api.h b/mtcp/src/include/mtcp_api.h
+index 0a1ee40f..75074c90 100644
+--- a/mtcp/src/include/mtcp_api.h
++++ b/mtcp/src/include/mtcp_api.h
+@@ -124,7 +124,6 @@ int
+ mtcp_getpeername(mctx_t mctx, int sockid, struct sockaddr *addr,
+ 		 socklen_t *addrlen);
+ 
+-inline ssize_t
+ mtcp_read(mctx_t mctx, int sockid, char *buf, size_t len);
+ 
+ ssize_t
 diff --git a/mtcp/src/io_module.c b/mtcp/src/io_module.c
-index 198a9887..6713a6f2 100644
+index 198a9887..e99d2ee6 100644
 --- a/mtcp/src/io_module.c
 +++ b/mtcp/src/io_module.c
 @@ -48,7 +48,6 @@
@@ -219,7 +234,7 @@ index 198a9887..6713a6f2 100644
 -					    "-c",
 -					    cpumaskbuf,
 +					    "-l",
-+					    "0,1",
++					    "0,1,2",
  					    "-n",
  					    mem_channels,
  #if 0

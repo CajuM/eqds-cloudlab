@@ -1,0 +1,19 @@
+APP = linux-kiss
+
+CC ?= gcc
+
+SRCS-y = main.c
+
+CFLAGS ?=
+CFLAGS += -Wall -Werror
+CFLAGS += -Wno-address-of-packed-member
+
+.PHONY: all
+
+all: $(APP)
+
+$(APP): $(SRCS-y) Makefile
+	$(CC) $(CFLAGS) $(SRCS-y) -o $@ $(LDFLAGS)
+
+clean:
+	rm -f $(APP)

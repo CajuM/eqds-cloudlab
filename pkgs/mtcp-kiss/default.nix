@@ -2,43 +2,56 @@
 , lib
 , pkg-config
 , dpdk
-, f-stack
 , jansson
+, gmp
 , libelf
+, libmnl
 , libnl
 , libpcap
+, mtcp
 , numactl
 , openssl
+, rdma-core
 , zlib
 }:
 
 stdenv.mkDerivation rec {
-  pname = "f-stack-perf";
+  pname = "mtcp-kiss";
   version = "0";
   src = ./.;
 
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
+    dpdk
     jansson
+    gmp
     libelf
+    libmnl
     libnl
     libpcap
+    mtcp
     numactl
     openssl
+    rdma-core
     zlib
-    dpdk
-    f-stack
   ];
 
   dontStrip = true;
 
   CFLAGS = lib.concatStringsSep " " [ ];
 
-  makeFlags = [ "F_STACK=${f-stack}" ];
+  makeFlags = [
+    "GMP=${gmp}"
+    "MTCP=${mtcp}"
+    "RTE_SDK=${dpdk}/share/dpdk"
+    "RTE_TARGET=x86_64-native-linuxapp-gcc"
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
-    cp f-stack-perf $out/bin
+    cp build/mtcp-kiss $out/bin/
   '';
+
+  enableParallelBuilding = true;
 }

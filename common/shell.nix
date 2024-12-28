@@ -3,18 +3,22 @@
 pkgs.mkShell {
   packages = with pkgs; [
     dpdk
+    ethtool
     gdb
     gettext
-    kmod
     iproute2
+    kmod
+    pciutils
     procps
+    systemd
     tmux
     which
     dpdk-iface
     qemu-affinity
-    eqds-tcp-perf
-    mtcp-perf
-    f-stack-perf
-    linux-perf
+    libndpip-kiss
+    libndpip-perf-kiss
+    mtcp-kiss
+    f-stack-kiss
+    linux-kiss
   ];
 }

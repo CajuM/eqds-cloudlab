@@ -1,6 +1,3 @@
-[submodule "pkgs/eqds-tcp-perf/src"]
-	path = pkgs/eqds-tcp-perf/src
-	url = git@github.com:cs-pub-ro/eqds-tcp-perf.git
 [submodule "pkgs/libndpip/src"]
 	path = pkgs/libndpip/src
 	url = git@github.com:cs-pub-ro/lib-ndpip.git

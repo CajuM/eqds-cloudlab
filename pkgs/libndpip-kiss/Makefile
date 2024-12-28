@@ -1,12 +1,16 @@
-APP = linux-perf
+APP = libndpip-kiss
 
 CC ?= gcc
+PKGCONF ?= pkg-config
 
 SRCS-y = main.c
 
 CFLAGS ?=
-CFLAGS += -Wall
+CFLAGS += -Wall -Werror
 CFLAGS += -Wno-address-of-packed-member
+
+CFLAGS += $(shell $(PKGCONF) --cflags ndpip)
+LDFLAGS += $(shell $(PKGCONF) --static --libs ndpip)
 
 .PHONY: all
 

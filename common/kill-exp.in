@@ -1,7 +1,7 @@
-pkill -9 eqds-tcp-perf
-pkill -9 f-stack-perf
-pkill -9 mtcp-perf
-pkill -9 linux-perf
+pkill -9 libndpip-kiss
+pkill -9 f-stack-kiss
+pkill -9 mtcp-kiss
+pkill -9 linux-kiss
 
 rm -rf /tmp/dpdk{1,2}
 rm -rf /tmp/devshell

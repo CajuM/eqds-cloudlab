@@ -4,7 +4,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "linux-perf";
+  pname = "linux-kiss";
   version = "0";
   src = ./.;
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp linux-perf $out/bin/
+    cp linux-kiss $out/bin/
   '';
 
   enableParallelBuilding = true;

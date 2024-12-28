@@ -9,11 +9,9 @@ def get_data(dentry):
         with open(fname) as f:
             fname = os.path.basename(fname).split('.')
 
-            tx, rx = fname[1].split('-')
-            tx = tx.replace('ndpip', 'SlimTCP')
-            rx = rx.replace('ndpip', 'SlimTCP')
-            tx = tx.replace('f_stack', 'f-stack')
-            rx = rx.replace('f_stack', 'f-stack')
+            h1, h2 = fname[1].split('-')
+            h1 = h1.replace('f_stack', 'f-stack')
+            h2 = h2.replace('f_stack', 'f-stack')
 
             mss = int(fname[3])
             connections = int(fname[4])
@@ -39,8 +37,8 @@ def get_data(dentry):
             bps = sum(line['bps'] for line in lines) // len(lines)
 
             data.append({
-                'tx': tx,
-                'rx': rx,
+                'h1': h1,
+                'h2': h2,
                 'mss': mss,
                 'connections': connections,
                 'pps': pps,

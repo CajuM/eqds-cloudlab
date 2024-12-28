@@ -4,7 +4,7 @@ set -ex
 
 exp="exp1"
 
-options=$(getopt -l "short,reboot,connections:,stacks-tx:,stacks-rx:,testbed-tx:,testbed-rx:,env:" -o "sx" -- "$@")
+options=$(getopt -l "short,reboot,connections:,stacks-h1:,stacks-h2:,testbed-h1:,testbed-h2:,env:" -o "sx" -- "$@")
 eval set -- "$options"
 
 tcp_mss_list='64 256 512 1460'
@@ -16,10 +16,10 @@ while true; do
 	case "$1" in
 		--connections) connections=$2 shift; shift;;
 		--reboot) reboot=1; shift;;
-		--stacks-tx) stacks_tx=$2; shift; shift;;
-		--stacks-rx) stacks_rx=$2; shift; shift;;
-		--testbed-tx) testbed_tx=$2; shift; shift;;
-		--testbed-rx) testbed_rx=$2; shift; shift;;
+		--stacks-h1) stacks_h1=$2; shift; shift;;
+		--stacks-h2) stacks_h2=$2; shift; shift;;
+		--testbed-h1) testbed_h1=$2; shift; shift;;
+		--testbed-h2) testbed_h2=$2; shift; shift;;
 		--env) env=$2; shift; shift;;
 		--) shift; break;;
 	esac

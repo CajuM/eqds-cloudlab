@@ -9,14 +9,14 @@
 , openssl
 , zlib
 , dpdk
-, lib-ndpip
+, libndpip
 , ndpipGrantsEnable
 }:
 
 stdenv.mkDerivation {
-  name = "eqds-tcp-perf";
+  name = "libndpip-kiss";
 
-  src = ./src;
+  src = ./.;
 
   dontStrip = true;
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     openssl
     zlib
     dpdk
-    lib-ndpip
+    libndpip
   ];
 
   CFLAGS = lib.concatStringsSep " " (
@@ -40,6 +40,6 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp eqds-tcp-perf $out/bin
+    cp libndpip-kiss $out/bin
   '';
 }
