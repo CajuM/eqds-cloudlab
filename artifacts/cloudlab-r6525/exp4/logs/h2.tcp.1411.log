@@ -1,0 +1,20 @@
+EAL: Detected CPU lcores: 128
+EAL: Detected NUMA nodes: 2
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Probe PCI driver: mlx5_pci (15b3:101d) device: 0000:81:00.0 (socket 1)
+app-ndpiptest: connected
+ndpip_rx_thread: avg_burst=0.040594; avg_replies=0.000950; pps=926173.240930;
+pps=6286670; bps=70963942073;
+pps=5753839; bps=64949341077;
+ndpip_rx_thread: avg_burst=1.373719; avg_replies=0.026554; pps=5844339.129744;
+pps=5716586; bps=64528830600;
+pps=5767200; bps=65100156930;
+pps=5798756; bps=65456364556;
+ndpip_rx_thread: avg_burst=1.466578; avg_replies=0.028069; pps=5792284.321730;
+pps=5898752; bps=66585116576;
+pps=5839857; bps=65920310871;
+ndpip_rx_thread: avg_burst=1.465713; avg_replies=0.027835; pps=5895060.344290;
+pps=6015179; bps=67899346794;

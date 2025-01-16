@@ -1,0 +1,38 @@
+EAL: Detected CPU lcores: 16
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Using IOMMU type 1 (Type 1)
+EAL: Probe PCI driver: net_ice (8086:1592) device: 0000:65:00.0 (socket 0)
+ice_load_pkg_type(): Active package is: 1.3.30.0, ICE OS Default Package (single VLAN mode)
+ice_set_rx_function(): Using AVX2 Vector Rx (port 0).
+app-ndpiptest: connected
+ndpip_rx_thread: avg_burst=0.005968; avg_replies=0.000209; pps=535845.582922;
+pps=8506776; bps=69687514288;
+ndpip_rx_thread: avg_burst=32.656397; avg_replies=1.000000; pps=11342617.448707;
+pps=11342683; bps=92919265640;
+ndpip_rx_thread: avg_burst=34.390016; avg_replies=1.000000; pps=11342655.369264;
+pps=11342705; bps=92919442502;
+ndpip_rx_thread: avg_burst=35.475543; avg_replies=1.000000; pps=11342672.727100;
+pps=11342651; bps=92918997565;
+ndpip_rx_thread: avg_burst=36.646129; avg_replies=1.000000; pps=11342717.363075;
+pps=11342633; bps=92918852038;
+ndpip_rx_thread: avg_burst=37.336266; avg_replies=1.000000; pps=11342654.136228;
+pps=11342758; bps=92919877729;
+ndpip_rx_thread: avg_burst=38.729234; avg_replies=1.000000; pps=11342707.738525;
+pps=11342643; bps=92918934075;
+ndpip_rx_thread: avg_burst=39.478783; avg_replies=1.000000; pps=11342680.162025;
+pps=11342633; bps=92918853267;
+ndpip_rx_thread: avg_burst=40.107148; avg_replies=1.000000; pps=11342609.255540;
+pps=11342665; bps=92919113484;
+ndpip_rx_thread: avg_burst=40.706544; avg_replies=1.000000; pps=11342677.226712;
+pps=11342669; bps=92919151081;
+ndpip_rx_thread: avg_burst=41.608453; avg_replies=1.000000; pps=11342658.843372;
+pps=11342514; bps=92917880808;
+ndpip_rx_thread: avg_burst=42.473338; avg_replies=1.000000; pps=11342537.843042;
+pps=11342630; bps=92918831759;
+ndpip_rx_thread: avg_burst=42.485529; avg_replies=1.000000; pps=11342653.540723;
+pps=11342540; bps=92918089405;
+ndpip_rx_thread: avg_burst=42.976621; avg_replies=1.000000; pps=11340957.704814;

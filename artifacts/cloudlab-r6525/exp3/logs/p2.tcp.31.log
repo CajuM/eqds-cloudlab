@@ -1,0 +1,30 @@
+EAL: Detected CPU lcores: 128
+EAL: Detected NUMA nodes: 2
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/p2/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+app-ndpiptest: connected
+ndpip_rx_thread: avg_burst=0.002879; avg_replies=0.000000; pps=146194.998830;
+ndpip_rx_thread: avg_burst=0.002872; avg_replies=0.000000; pps=145894.978116;
+ndpip_rx_thread: avg_burst=0.002889; avg_replies=0.000000; pps=145903.978260;
+ndpip_rx_thread: avg_burst=0.002873; avg_replies=0.000000; pps=145751.998834;
+ndpip_rx_thread: avg_burst=0.002869; avg_replies=0.000000; pps=145737.998688;
+ndpip_rx_thread: avg_burst=0.002871; avg_replies=0.000000; pps=145664.998835;
+ndpip_rx_thread: avg_burst=0.002874; avg_replies=0.000000; pps=145591.997234;
+ndpip_rx_thread: avg_burst=0.002899; avg_replies=0.000000; pps=145597.997234;
+ndpip_rx_thread: avg_burst=0.002877; avg_replies=0.000000; pps=145873.997374;
+ndpip_rx_thread: avg_burst=0.002880; avg_replies=0.000000; pps=145576.998690;
+ndpip_rx_thread: avg_burst=0.002860; avg_replies=0.000000; pps=145249.998693;
+ndpip_rx_thread: avg_burst=0.002878; avg_replies=0.000000; pps=145681.998835;
+ndpip_rx_thread: avg_burst=0.002861; avg_replies=0.000000; pps=145251.997240;
+ndpip_rx_thread: avg_burst=0.002850; avg_replies=0.000000; pps=145140.998839;
+ndpip_rx_thread: avg_burst=0.002859; avg_replies=0.000000; pps=145214.998693;
+ndpip_rx_thread: avg_burst=0.002868; avg_replies=0.000000; pps=145352.998692;
+ndpip_rx_thread: avg_burst=0.002852; avg_replies=0.000000; pps=145037.997389;
+ndpip_rx_thread: avg_burst=0.002896; avg_replies=0.000000; pps=145087.998694;
+ndpip_rx_thread: avg_burst=0.002885; avg_replies=0.000000; pps=144994.998840;
+ndpip_rx_thread: avg_burst=0.002845; avg_replies=0.000000; pps=144657.945030;
+ndpip_rx_thread: avg_burst=0.002845; avg_replies=0.000000; pps=144790.998697;
+ndpip_rx_thread: avg_burst=0.002843; avg_replies=0.000000; pps=144532.997254;
+

@@ -13,15 +13,15 @@ MARKERS = '>^+*'
 data = get_data(sys.argv[1])
 data.sort(key=lambda row: row['mss'])
 
-keys = list({(row['tx'], row['rx']) for row in data})
+keys = list({(row['h1'], row['h2']) for row in data})
 x_mss = {}
 y_bps = {}
 y_pps = {}
 
 for key in keys:
-    x_mss[key] = np.array([row['mss'] for row in data if (row['tx'], row['rx']) == key])
-    y_pps[key] = np.array([row['pps'] for row in data if (row['tx'], row['rx']) == key])
-    y_bps[key] = np.array([row['bps'] for row in data if (row['tx'], row['rx']) == key])
+    x_mss[key] = np.array([row['mss'] for row in data if (row['h1'], row['h2']) == key])
+    y_pps[key] = np.array([row['pps'] for row in data if (row['h1'], row['h2']) == key])
+    y_bps[key] = np.array([row['bps'] for row in data if (row['h1'], row['h2']) == key])
 
 f = open('exp1-mean-bps.tex', 'wt')
 
@@ -39,15 +39,15 @@ f.write('''
 \\hline
 ''')
 
-f.write(f'tx & rx & ' + ' & '.join(f'MSS {c}B' for c in x_mss) + ' \\\\\n')
+f.write(f'h1 & h2 & ' + ' & '.join(f'MSS {c}B' for c in x_mss[key]) + ' \\\\\n')
 
 for key in keys:
     if (len(x_mss[key]) == 0) or (len(y_bps[key]) == 0):
         continue
 
-    tx, rx = key
+    h1, h2 = key
 
-    f.write(f'{tx} & {rx} & ' + ' & '.join(f'{format_bps(c)}' for c in y_bps[key]) + ' \\\\\n')
+    f.write(f'{h1} & {h2} & ' + ' & '.join(f'{format_bps(c)}' for c in y_bps[key]) + ' \\\\\n')
 
     plt.plot(x_mss[key], y_bps[key], label=key, marker=MARKERS[marker])
     marker = (marker + 1) % len(MARKERS)
@@ -78,15 +78,15 @@ f.write('''
 \\hline
 ''')
 
-f.write(f'tx & rx & ' + ' & '.join(f'MSS {c}B' for c in x_mss) + ' \\\\\n')
+f.write(f'h1 & h2 & ' + ' & '.join(f'MSS {c}B' for c in x_mss[key]) + ' \\\\\n')
 
 for key in keys:
     if (len(x_mss[key]) == 0) or (len(y_pps[key]) == 0):
         continue
 
-    tx, rx = key
+    h1, h2 = key
 
-    f.write(f'{tx} & {rx} & ' + ' & '.join(f'{c}' for c in y_pps[key]) + ' \\\\\n')
+    f.write(f'{h1} & {h2} & ' + ' & '.join(f'{c}' for c in y_pps[key]) + ' \\\\\n')
 
     plt.plot(x_mss[key], y_pps[key], label=key, marker=MARKERS[marker])
     marker = (marker + 1) % len(MARKERS)

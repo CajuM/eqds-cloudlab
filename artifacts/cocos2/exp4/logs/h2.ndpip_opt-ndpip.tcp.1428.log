@@ -1,0 +1,39 @@
+EAL: Detected CPU lcores: 16
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Using IOMMU type 1 (Type 1)
+EAL: Probe PCI driver: net_ice (8086:1592) device: 0000:65:00.0 (socket 0)
+ice_load_pkg_type(): Active package is: 1.3.30.0, ICE OS Default Package (single VLAN mode)
+ice_set_rx_function(): Using AVX2 Vector Rx (port 0).
+app-ndpiptest: connected
+ndpip_rx_thread: avg_burst=0.125069; avg_replies=0.004615; pps=4277510.307686;
+pps=6308408; bps=71057912123;
+ndpip_rx_thread: avg_burst=27.873748; avg_replies=1.000000; pps=8411396.346908;
+pps=8411544; bps=94747636165;
+ndpip_rx_thread: avg_burst=28.298224; avg_replies=1.000000; pps=8411522.451338;
+pps=8411470; bps=94746802456;
+ndpip_rx_thread: avg_burst=28.774103; avg_replies=1.000000; pps=8411473.927190;
+pps=8411463; bps=94746723124;
+ndpip_rx_thread: avg_burst=28.982035; avg_replies=1.000000; pps=8411469.670587;
+pps=8411492; bps=94747046708;
+ndpip_rx_thread: avg_burst=29.294464; avg_replies=1.000000; pps=8411486.980456;
+pps=8411493; bps=94747059155;
+ndpip_rx_thread: avg_burst=29.647477; avg_replies=1.000000; pps=8411503.670583;
+pps=8411556; bps=94747769978;
+ndpip_rx_thread: avg_burst=30.040513; avg_replies=1.000000; pps=8411553.938997;
+pps=8411531; bps=94747493796;
+ndpip_rx_thread: avg_burst=30.342266; avg_replies=1.000000; pps=8411530.493502;
+pps=8411480; bps=94746912676;
+ndpip_rx_thread: avg_burst=30.661262; avg_replies=1.000000; pps=8411463.121218;
+pps=8411511; bps=94747268670;
+ndpip_rx_thread: avg_burst=30.864599; avg_replies=1.000000; pps=8411554.124695;
+pps=8411537; bps=94747556253;
+pps=8411620; bps=94748490619;
+ndpip_rx_thread: avg_burst=30.952233; avg_replies=1.000000; pps=8411547.828381;
+pps=8411549; bps=94747695132;
+ndpip_rx_thread: avg_burst=31.567303; avg_replies=1.000000; pps=8411540.722162;
+pps=8411545; bps=94747644745;
+ndpip_rx_thread: avg_burst=31.869050; avg_replies=1.000000; pps=8411538.563886;

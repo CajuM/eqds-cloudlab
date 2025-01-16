@@ -15,9 +15,9 @@ pkgs.mkShell {
     which
     dpdk-iface
     qemu-affinity
-    libndpip-perf
-    mtcp-perf
-    f-stack-perf
-    linux-perf
+    libndpip-kiss
+    mtcp-kiss
+    f-stack-kiss
+    linux-kiss
   ];
 }

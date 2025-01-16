@@ -1,0 +1,109 @@
+[dpdk]: lcore_mask=2
+[dpdk]: channel=4
+[dpdk]: promiscuous=1
+[dpdk]: numa_on=1
+[dpdk]: tx_csum_offoad_skip=0
+[dpdk]: tso=0
+[dpdk]: vlan_strip=1
+[dpdk]: idle_sleep=0
+[dpdk]: pkt_tx_delay=0
+[dpdk]: symmetric_rss=0
+[dpdk]: allow=0000:ca:00.0
+[dpdk]: port_list=2
+[dpdk]: nb_vdev=0
+[dpdk]: nb_bond=0
+[pcap]: enable=0
+[pcap]: snaplen=96
+[pcap]: savelen=16777216
+[pcap]: savepath=.
+[port2]: addr=10.1.1.2
+[port2]: netmask=255.255.255.0
+[port2]: broadcast=10.1.1.255
+[port2]: gateway=10.1.1.254
+[freebsd.boot]: hz=100
+[freebsd.boot]: fd_reserve=1024
+[freebsd.boot]: kern.ipc.maxsockets=262144
+[freebsd.boot]: net.inet.tcp.syncache.hashsize=4096
+[freebsd.boot]: net.inet.tcp.syncache.bucketlimit=100
+[freebsd.boot]: net.inet.tcp.tcbhashsize=65536
+[freebsd.boot]: kern.ncallout=262144
+[freebsd.boot]: kern.features.inet6=1
+[freebsd.boot]: net.inet6.ip6.auto_linklocal=1
+[freebsd.boot]: net.inet6.ip6.accept_rtadv=2
+[freebsd.boot]: net.inet6.icmp6.rediraccept=1
+[freebsd.boot]: net.inet6.ip6.forwarding=0
+[freebsd.sysctl]: kern.ipc.somaxconn=32768
+[freebsd.sysctl]: kern.ipc.maxsockbuf=16777216
+[freebsd.sysctl]: net.link.ether.inet.maxhold=5
+[freebsd.sysctl]: net.inet.tcp.fast_finwait2_recycle=1
+[freebsd.sysctl]: net.inet.tcp.sendspace=16384
+[freebsd.sysctl]: net.inet.tcp.recvspace=8192
+[freebsd.sysctl]: net.inet.tcp.cc.algorithm=cubic
+[freebsd.sysctl]: net.inet.tcp.sendbuf_max=16777216
+[freebsd.sysctl]: net.inet.tcp.recvbuf_max=16777216
+[freebsd.sysctl]: net.inet.tcp.sendbuf_auto=1
+[freebsd.sysctl]: net.inet.tcp.recvbuf_auto=1
+[freebsd.sysctl]: net.inet.tcp.sendbuf_inc=16384
+[freebsd.sysctl]: net.inet.tcp.sack.enable=1
+[freebsd.sysctl]: net.inet.tcp.blackhole=1
+[freebsd.sysctl]: net.inet.tcp.msl=2000
+[freebsd.sysctl]: net.inet.tcp.delayed_ack=1
+[freebsd.sysctl]: net.inet.tcp.rfc1323=1
+[freebsd.sysctl]: net.inet.udp.blackhole=1
+[freebsd.sysctl]: net.inet.ip.redirect=0
+[freebsd.sysctl]: net.inet.ip.forwarding=0
+[freebsd.sysctl]: net.inet.tcp.functions_default=freebsd
+[freebsd.sysctl]: net.inet.tcp.hpts.skip_swi=1
+[freebsd.sysctl]: net.inet.tcp.hpts.minsleep=250
+[freebsd.sysctl]: net.inet.tcp.hpts.maxsleep=51200
+f-stack -c2 -n4 --proc-type=primary 
+EAL: Detected CPU lcores: 128
+EAL: Detected NUMA nodes: 2
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'PA'
+EAL: No available 1048576 kB hugepages reported
+EAL: VFIO support initialized
+EAL: Probe PCI driver: mlx5_pci (15b3:1017) device: 0000:31:00.0 (socket 0)
+EAL: Probe PCI driver: mlx5_pci (15b3:1017) device: 0000:31:00.1 (socket 0)
+EAL: Probe PCI driver: mlx5_pci (15b3:101d) device: 0000:ca:00.0 (socket 1)
+EAL: Probe PCI driver: mlx5_pci (15b3:101d) device: 0000:ca:00.1 (socket 1)
+lcore: 1, port: 2, queue: 0
+create mbuf pool on socket 1
+create ring:dispatch_ring_p2_q0 success, 2047 ring entries are now free!
+Port 2 MAC: 04 3f 72 f2 9b 7a
+Port 2 modified RSS hash function based on hardware support,requested:0x2003ffffc configured:0x3afbc
+port[2]: rss table size: 512
+set port 2 to promiscuous mode ok
+
+Checking link statusdone
+Port 2 Link Up - speed 100000 Mbps - full-duplex
+Timecounters tick every 10.000 msec
+WARNING: Adding ifaddrs to all fibs has been turned off by default. Consider tuning net.add_addr_allfibs if needed
+Attempting to load tcp_bbr
+tcp_bbr is now available
+TCP Hpts created 1 swi interrupt threads and bound 0 to cpus
+Timecounter "ff_clock" frequency 100 Hz quality 1
+TCP_ratelimit: Is now initialized
+f-stack-2: No addr6 config found.
+f-stack-2: Ethernet address: 04:3f:72:f2:9b:7a
+connected
+pps=171426; bps=453938824;
+pps=171412; bps=453899955;
+pps=171398; bps=453863324;
+pps=171457; bps=454021516;
+pps=171043; bps=452925556;
+pps=171428; bps=453943414;
+pps=165625; bps=438577967;
+pps=171415; bps=453910499;
+pps=171457; bps=454019639;
+pps=171432; bps=453952830;
+pps=171320; bps=453657188;
+pps=171413; bps=453902771;
+pps=165705; bps=438788254;
+pps=171391; bps=453845685;
+pps=171349; bps=453732309;
+pps=171410; bps=453895780;
+pps=171474; bps=454065168;
+pps=171239; bps=453442737;
+Terminated

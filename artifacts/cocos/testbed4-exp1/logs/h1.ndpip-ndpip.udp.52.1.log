@@ -1,0 +1,13 @@
+EAL: Detected CPU lcores: 10
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Using IOMMU type 1 (Type 1)
+EAL: Ignore mapping IO port bar(2)
+EAL: Probe PCI driver: net_ixgbe (8086:10fb) device: 0000:16:00.0 (socket 0)
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=0.999792; burst_tsc=39.683103;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=0.999961; burst_tsc=39.582661;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=1.999553; burst_tsc=39.676333;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=1.999773; burst_tsc=39.592423;

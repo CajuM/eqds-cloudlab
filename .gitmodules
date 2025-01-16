@@ -2,3 +2,7 @@
 	path = pkgs/libndpip/src
 	url = git@github.com:cs-pub-ro/lib-ndpip.git
 	branch = master
+[submodule "pkgs/eqdsshim/src"]
+	path = pkgs/eqdsshim/src
+	url = git@github.com:CajuM/ndpshim.git
+	branch = mcaju

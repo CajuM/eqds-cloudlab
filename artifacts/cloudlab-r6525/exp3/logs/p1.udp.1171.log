@@ -1,0 +1,28 @@
+EAL: Detected CPU lcores: 128
+EAL: Detected NUMA nodes: 2
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/p1/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+app-ndpiptest: connected
+pps=0; bps=0;
+pps=0; bps=0;
+pps=0; bps=0;
+pps=0; bps=0;
+pps=0; bps=0;
+pps=0; bps=0;
+pps=0; bps=0;
+pps=0; bps=0;
+pps=0; bps=0;
+ndpip_rx_thread: avg_burst=0.087341; avg_replies=0.000000; pps=2960231.702418;
+pps=2960508; bps=27734042774;
+pps=4887702; bps=45787998974;
+pps=4899875; bps=45902033063;
+pps=4905584; bps=45955519762;
+pps=4906656; bps=45965558912;
+pps=4903279; bps=45933924427;
+pps=4909363; bps=45990920862;
+pps=4904237; bps=45942900173;
+pps=4913789; bps=46032377631;
+pps=4888807; bps=45798351657;
+

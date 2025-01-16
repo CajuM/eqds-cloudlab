@@ -1,0 +1,102 @@
+---------------------------------------------------------------------------------
+Loading mtcp configuration from : perf.conf
+EAL: Probing VFIO support...
+EAL: VFIO support initialized
+Loading interface setting
+EAL: Detected 6 lcore(s)
+EAL: Detected 1 NUMA nodes
+EAL: Auto-detected process type: PRIMARY
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: No free hugepages reported in hugepages-1048576kB
+EAL: PCI device 0000:1a:00.0 on NUMA socket -1
+EAL:   Invalid NUMA socket, default to 0
+EAL:   probe driver: 8086:10fb net_ixgbe
+EAL:   using IOMMU type 1 (Type 1)
+EAL: Ignore mapping IO port bar(2)
+EAL: Auto-detected process type: PRIMARY
+Total number of attached devices: 1
+Interface name: dpdk0
+Configurations:
+Number of CPU cores available: 3
+Number of CPU cores to use: 3
+Maximum number of concurrency per core: 10000
+Maximum number of preallocated buffers per core: 10000
+Receive buffer size: 102400
+Send buffer size: 102400
+TCP timeout seconds: 30
+TCP timewait seconds: 0
+NICs to print statistics: dpdk0
+---------------------------------------------------------------------------------
+Interfaces:
+name: dpdk0, ifindex: 0, hwaddr: 90:E2:BA:46:F3:44, ipaddr: 10.1.1.2, netmask: 255.255.255.0
+Number of NIC queues: 3
+---------------------------------------------------------------------------------
+Loading routing configurations from : config/route.conf
+fopen: No such file or directory
+Skip loading static routing table
+Routes:
+Destination: 10.1.1.0/24, Mask: 255.255.255.0, Masked: 10.1.1.0, Route: ifdx-0
+---------------------------------------------------------------------------------
+Loading ARP table from : config/arp.conf
+Initializing port 0... ARP Table:
+IP addr: 10.1.1.1, dst_hwaddr: 90:E2:BA:46:F2:25
+---------------------------------------------------------------------------------
+done: 
+
+Checking link status.done
+Port 0 Link Up - speed 10000 Mbps - full-duplex
+CPU 1: initialization finished.
+[mtcp_create_context:1359] CPU 1 is now the master thread.
+[CPU 1] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[CPU 1] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[CPU 1] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[CPU 1] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[CPU 1] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+[ ALL ] dpdk0 flows:      0, RX:       0(pps) (err:     0),  0.00(Gbps), TX:       0(pps),  0.00(Gbps)
+clientfd=1;
+[CPU 1] dpdk0 flows:      1, RX: 1157119(pps) (err:     0),  5.44(Gbps), TX:   36546(pps),  0.03(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1157119(pps) (err:     0),  5.44(Gbps), TX:   36546(pps),  0.03(Gbps)
+pps=1684712; bps=6887107972;
+[CPU 1] dpdk0 flows:      1, RX: 1737177(pps) (err:     0),  8.16(Gbps), TX:   54376(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1737177(pps) (err:     0),  8.16(Gbps), TX:   54376(pps),  0.04(Gbps)
+pps=1691240; bps=6913792705;
+[CPU 1] dpdk0 flows:      1, RX: 1735720(pps) (err:     0),  8.16(Gbps), TX:   54348(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1735720(pps) (err:     0),  8.16(Gbps), TX:   54348(pps),  0.04(Gbps)
+pps=1690036; bps=6908873185;
+[CPU 1] dpdk0 flows:      1, RX: 1736156(pps) (err:     0),  8.16(Gbps), TX:   54352(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1736156(pps) (err:     0),  8.16(Gbps), TX:   54352(pps),  0.04(Gbps)
+pps=1689748; bps=6907695207;
+[CPU 1] dpdk0 flows:      1, RX: 1736740(pps) (err:     0),  8.16(Gbps), TX:   54379(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1736740(pps) (err:     0),  8.16(Gbps), TX:   54379(pps),  0.04(Gbps)
+pps=1690870; bps=6912282411;
+[CPU 1] dpdk0 flows:      1, RX: 1737087(pps) (err:     0),  8.16(Gbps), TX:   54396(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1737087(pps) (err:     0),  8.16(Gbps), TX:   54396(pps),  0.04(Gbps)
+pps=1690880; bps=6912322017;
+[CPU 1] dpdk0 flows:      1, RX: 1737344(pps) (err:     0),  8.16(Gbps), TX:   54385(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1737344(pps) (err:     0),  8.16(Gbps), TX:   54385(pps),  0.04(Gbps)
+pps=1691613; bps=6915319131;
+[CPU 1] dpdk0 flows:      1, RX: 1737856(pps) (err:     0),  8.17(Gbps), TX:   54407(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1737856(pps) (err:     0),  8.17(Gbps), TX:   54407(pps),  0.04(Gbps)
+pps=1691666; bps=6915533703;
+[CPU 1] dpdk0 flows:      1, RX: 1736065(pps) (err:     0),  8.16(Gbps), TX:   54346(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1736065(pps) (err:     0),  8.16(Gbps), TX:   54346(pps),  0.04(Gbps)
+pps=1688130; bps=6901080191;
+[CPU 1] dpdk0 flows:      1, RX: 1651583(pps) (err:     0),  7.76(Gbps), TX:   51969(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1651583(pps) (err:     0),  7.76(Gbps), TX:   51969(pps),  0.04(Gbps)
+pps=1606900; bps=6569012490;
+[CPU 1] dpdk0 flows:      1, RX: 1715801(pps) (err:     0),  8.06(Gbps), TX:   53950(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1715801(pps) (err:     0),  8.06(Gbps), TX:   53950(pps),  0.04(Gbps)
+pps=1674655; bps=6845993062;
+[CPU 1] dpdk0 flows:      1, RX: 1706023(pps) (err:     0),  8.02(Gbps), TX:   53600(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1706023(pps) (err:     0),  8.02(Gbps), TX:   53600(pps),  0.04(Gbps)
+pps=1661969; bps=6794131362;
+[CPU 1] dpdk0 flows:      1, RX: 1734877(pps) (err:     0),  8.15(Gbps), TX:   54375(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1734877(pps) (err:     0),  8.15(Gbps), TX:   54375(pps),  0.04(Gbps)
+pps=1685918; bps=6892036117;
+[CPU 1] dpdk0 flows:      1, RX: 1730083(pps) (err:     0),  8.13(Gbps), TX:   54304(pps),  0.04(Gbps)
+[ ALL ] dpdk0 flows:      1, RX: 1730083(pps) (err:     0),  8.13(Gbps), TX:   54304(pps),  0.04(Gbps)
+pps=1683389; bps=6881696450;

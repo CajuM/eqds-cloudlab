@@ -1,0 +1,9 @@
+stop
+port stop ${NW_PORT}
+port stop ${VM_PORT}
+
+set fwd io
+
+port start ${VM_PORT}
+port start ${NW_PORT}
+start

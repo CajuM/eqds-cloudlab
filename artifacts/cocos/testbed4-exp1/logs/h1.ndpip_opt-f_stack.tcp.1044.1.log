@@ -1,0 +1,27 @@
+EAL: Detected CPU lcores: 10
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Using IOMMU type 1 (Type 1)
+EAL: Ignore mapping IO port bar(2)
+EAL: Probe PCI driver: net_ixgbe (8086:10fb) device: 0000:16:00.0 (socket 0)
+ndpip_rx_thread: avg_burst=0.002125; avg_replies=0.000000; pps=80969.913043; burst_tsc=34.313419;
+ndpip_rx_thread: avg_burst=0.009702; avg_replies=0.000000; pps=324219.970257; burst_tsc=42.376274;
+ndpip_rx_thread: avg_burst=0.009678; avg_replies=0.000000; pps=323629.160913; burst_tsc=42.336966;
+ndpip_rx_thread: avg_burst=0.009629; avg_replies=0.000000; pps=322496.016354; burst_tsc=42.246863;
+ndpip_rx_thread: avg_burst=0.009627; avg_replies=0.000000; pps=322892.378801; burst_tsc=42.163764;
+ndpip_rx_thread: avg_burst=0.009625; avg_replies=0.000000; pps=322741.099355; burst_tsc=42.191279;
+ndpip_rx_thread: avg_burst=0.009616; avg_replies=0.000000; pps=322676.982356; burst_tsc=42.143090;
+ndpip_rx_thread: avg_burst=0.009601; avg_replies=0.000000; pps=322259.748664; burst_tsc=42.121575;
+ndpip_rx_thread: avg_burst=0.009613; avg_replies=0.000000; pps=322485.828916; burst_tsc=42.154887;
+ndpip_rx_thread: avg_burst=0.009588; avg_replies=0.000000; pps=321485.140717; burst_tsc=42.169044;
+ndpip_rx_thread: avg_burst=0.009619; avg_replies=0.000000; pps=322396.195773; burst_tsc=42.207802;
+ndpip_rx_thread: avg_burst=0.009577; avg_replies=0.000000; pps=321613.897450; burst_tsc=42.098692;
+ndpip_rx_thread: avg_burst=0.009578; avg_replies=0.000000; pps=321127.522009; burst_tsc=42.195306;
+ndpip_rx_thread: avg_burst=0.009586; avg_replies=0.000000; pps=321569.846576; burst_tsc=42.145771;
+ndpip_rx_thread: avg_burst=0.009598; avg_replies=0.000000; pps=321969.501931; burst_tsc=42.156378;
+ndpip_rx_thread: avg_burst=0.009594; avg_replies=0.000000; pps=321944.748610; burst_tsc=42.130389;
+ndpip_rx_thread: avg_burst=0.009575; avg_replies=0.000000; pps=321342.345252; burst_tsc=42.130776;
+ndpip_rx_thread: avg_burst=0.009567; avg_replies=0.000000; pps=321248.461339; burst_tsc=42.095386;

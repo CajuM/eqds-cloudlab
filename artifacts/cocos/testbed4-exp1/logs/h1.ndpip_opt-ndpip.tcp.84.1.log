@@ -1,0 +1,27 @@
+EAL: Detected CPU lcores: 10
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Using IOMMU type 1 (Type 1)
+EAL: Ignore mapping IO port bar(2)
+EAL: Probe PCI driver: net_ixgbe (8086:10fb) device: 0000:16:00.0 (socket 0)
+ndpip_rx_thread: avg_burst=0.000008; avg_replies=0.000000; pps=313.963541; burst_tsc=32.840746;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=5.999174; burst_tsc=32.062520;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999562; burst_tsc=32.068793;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999897; burst_tsc=32.065523;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999834; burst_tsc=32.068755;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=4.999098; burst_tsc=32.052436;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=5.999571; burst_tsc=32.056310;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=4.999622; burst_tsc=32.053510;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=5.999869; burst_tsc=32.078235;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999196; burst_tsc=32.058451;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999915; burst_tsc=32.061570;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999151; burst_tsc=32.053120;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999106; burst_tsc=32.064464;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=5.999327; burst_tsc=32.058429;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999183; burst_tsc=32.062075;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999598; burst_tsc=32.056201;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999345; burst_tsc=32.056854;
+ndpip_rx_thread: avg_burst=0.000000; avg_replies=0.000000; pps=3.999093; burst_tsc=32.061217;

@@ -1,0 +1,36 @@
+EAL: Detected CPU lcores: 6
+EAL: Detected NUMA nodes: 1
+EAL: Detected static linkage of DPDK
+EAL: Multi-process socket /var/run/dpdk/rte/mp_socket
+EAL: Selected IOVA mode 'VA'
+EAL: VFIO support initialized
+EAL: Using IOMMU type 1 (Type 1)
+EAL: Ignore mapping IO port bar(2)
+EAL: Probe PCI driver: net_ixgbe (8086:10fb) device: 0000:1a:00.0 (socket -1)
+app-ndpiptest: connected
+ndpip_rx_thread: avg_burst=0.036558; avg_replies=0.030168; pps=550790.992840;
+pps=641906; bps=7091780851;
+ndpip_rx_thread: avg_burst=0.076802; avg_replies=0.063618; pps=808741.961989;
+pps=808741; bps=8934980413;
+ndpip_rx_thread: avg_burst=0.077168; avg_replies=0.063924; pps=810168.855790;
+pps=810170; bps=8950766732;
+ndpip_rx_thread: avg_burst=0.092288; avg_replies=0.076461; pps=856705.131447;
+pps=856705; bps=9464878148;
+ndpip_rx_thread: avg_burst=0.077840; avg_replies=0.064522; pps=813247.390064;
+pps=813248; bps=8984767667;
+ndpip_rx_thread: avg_burst=0.077820; avg_replies=0.064480; pps=813204.935757;
+pps=813205; bps=8984296806;
+ndpip_rx_thread: avg_burst=0.077865; avg_replies=0.064494; pps=813290.970722;
+pps=813290; bps=8985232475;
+ndpip_rx_thread: avg_burst=0.077917; avg_replies=0.064551; pps=813271.973975;
+pps=813272; bps=8985035482;
+pps=856705; bps=9464876903;
+ndpip_rx_thread: avg_burst=0.092604; avg_replies=0.076746; pps=856704.573541;
+pps=813188; bps=8984103911;
+ndpip_rx_thread: avg_burst=0.077891; avg_replies=0.064507; pps=813187.916242;
+pps=813233; bps=8984599160;
+ndpip_rx_thread: avg_burst=0.077892; avg_replies=0.064518; pps=813231.634046;
+pps=813253; bps=8984829819;
+ndpip_rx_thread: avg_burst=0.077878; avg_replies=0.064499; pps=813254.795060;
+pps=813168; bps=8983886800;
+ndpip_rx_thread: avg_burst=0.077902; avg_replies=0.064541; pps=813166.312061;
