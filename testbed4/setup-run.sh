@@ -3,12 +3,13 @@
 set -ex
 
 TOP=$(dirname $(dirname $(readlink -f $0)))
+SELF_ID=$1
 env=$2
 
 . "${TOP}/${env}"
 . "${TOP}/common/env-tail.sh"
 
-cd ${TOP}/testbed1
+cd ${TOP}/testbed4
 
 sysctl -w vm.swappiness=0
 sysctl -w vm.zone_reclaim_mode=0

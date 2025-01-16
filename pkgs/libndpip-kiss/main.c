@@ -326,7 +326,7 @@ int main(int argc, char **argv)
 	uint16_t n_sev = 0;
 
 	while (running) {
-		int n_events = ndpip_epoll_wait(ep, ev, connections, 0);
+		int n_events = ndpip_epoll_wait(ep, ev, connections, 1);
 		if (n_events < 0) {
 			perror("epoll");
 			goto ret;

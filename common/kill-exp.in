@@ -3,7 +3,12 @@ pkill -9 f-stack-kiss
 pkill -9 mtcp-kiss
 pkill -9 linux-kiss
 
+pkill -9 qemu
+pkill -9 testpmd
+pkill -9 tmux
+
 rm -rf /tmp/dpdk{1,2}
+rm -rf /tmp/run-nixos-vm*
 rm -rf /tmp/devshell
 rm -rf config perf.conf log_1
 rm -rf eqds-cloudlab

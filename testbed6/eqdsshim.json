@@ -1,5 +1,0 @@
-{
-	"ipv4CsumOffload": true,
-	"tcpCsumOffload": true,
-	"udpCsumOffload": true
-}
