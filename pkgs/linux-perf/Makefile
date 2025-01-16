@@ -5,7 +5,7 @@ CC ?= gcc
 SRCS-y = main.c
 
 CFLAGS ?=
-CFLAGS += -Wall
+CFLAGS += -Wall -Werror
 CFLAGS += -Wno-address-of-packed-member
 
 .PHONY: all

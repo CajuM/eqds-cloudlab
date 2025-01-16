@@ -1,0 +1,18 @@
+
+\begin{center}
+\begin{tabular}{ c c c c c c }
+\multicolumn{6}{c}{MEAN goodput(b/s) by segment size} \\
+\hline
+tx & rx & MSS 64B & MSS 256B & MSS 512B & MSS 1460B \\
+SlimTCP & SlimTCP & 1.9G & 6.8G & 13.0G & 23.7G \\
+f-stack & f-stack & 670.5M & 2.1G & 2.7G & 3.2G \\
+mtcp & SlimTCP & 2.1G & 8.1G & 13.8G & 16.5G \\
+SlimTCP & mtcp & 336.2K & 1.7M & 7.3G & 1.5M \\
+mtcp & mtcp & 1.3G & 4.4G & 8.7G & 12.4G \\
+SlimTCP & f-stack & 675.9M & 1.7G & 2.3G & 190.7K \\
+f-stack & SlimTCP & 410.6M & 5.2G & 9.2G & 15.7G \\
+mtcp & f-stack & 668.2M & 1.8G & 2.3G & 3.0G \\
+f-stack & mtcp & 123.4M & 576.1M & 8.0G & 776.8M \\
+
+\end{tabular}
+\end{center}

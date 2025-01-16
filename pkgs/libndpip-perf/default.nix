@@ -9,14 +9,14 @@
 , openssl
 , zlib
 , dpdk
-, lib-ndpip
+, libndpip
 , ndpipGrantsEnable
 }:
 
 stdenv.mkDerivation {
-  name = "eqds-tcp-perf";
+  name = "libndpip-perf";
 
-  src = ./src;
+  src = ./.;
 
   dontStrip = true;
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     openssl
     zlib
     dpdk
-    lib-ndpip
+    libndpip
   ];
 
   CFLAGS = lib.concatStringsSep " " (

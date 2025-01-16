@@ -46,11 +46,12 @@ if [ -z "$(lsmod | grep dpdk_iface)" ]; then insmod "${TOP}/testbed1/dpdk_iface.
 dpdk_iface_main || true
 ip addr add 10.1.1.${SELF_ID}/24 dev ${SELF_MTCP_IFACE}
 ip link set ${SELF_MTCP_IFACE} down
-ls /sys/devices/system/cpu/cpu*/online | grep -vP "cpu([0-9]|1[0-5])/" | xargs -IIOTA sh -c 'echo 0 >IOTA'
 
-if [[ -n "${SELF_IFACE}" && -z "$(echo $SELF_IFACE | grep -P dpdk\d+)" ]]; then
-	ethtool -A ${SELF_IFACE} rx off tx off
+if [[ -z "$(echo ${SELF_MTCP_IFACE} | grep -P 'dpdk\d+')" ]]; then
+	ethtool -A ${SELF_MTCP_IFACE} rx off tx off
 fi
+
+ls /sys/devices/system/cpu/cpu*/online | grep -vP 'cpu([0-9]|1[0-5])/' | xargs -IIOTA sh -c 'echo 0 >IOTA'
 
 # Set-up mTCP
 mkdir -p config

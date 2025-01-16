@@ -19,7 +19,7 @@ OBJS = $(SRCS:.c=.o)
 
 CFLAGS ?=
 CFLAGS += -I.
-CFLAGS += -Wall
+CFLAGS += -Wall -Werror
 CFLAGS += -Wno-address-of-packed-member
 
 CFLAGS += -I$(F_STACK)/include

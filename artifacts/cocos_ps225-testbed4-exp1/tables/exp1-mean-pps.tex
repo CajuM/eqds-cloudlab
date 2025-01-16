@@ -1,0 +1,18 @@
+
+\begin{center}
+\begin{tabular}{ c c c c c c }
+\multicolumn{6}{c}{MEAN packet-rate(p/s) by segment size} \\
+\hline
+tx & rx & MSS 64B & MSS 256B & MSS 512B & MSS 1460B \\
+SlimTCP & SlimTCP & 3663913 & 3321841 & 3181229 & 2031411 \\
+f-stack & f-stack & 1309474 & 1024675 & 647506 & 270674 \\
+mtcp & SlimTCP & 4025501 & 3947304 & 3380469 & 1413576 \\
+SlimTCP & mtcp & 655 & 829 & 1786298 & 131 \\
+mtcp & mtcp & 2444645 & 2136347 & 2116158 & 1057451 \\
+SlimTCP & f-stack & 1320044 & 842068 & 567145 & 15 \\
+f-stack & SlimTCP & 801861 & 2559062 & 2249509 & 1342289 \\
+mtcp & f-stack & 1305095 & 875633 & 562951 & 258234 \\
+f-stack & mtcp & 241027 & 281288 & 1952010 & 66509 \\
+
+\end{tabular}
+\end{center}

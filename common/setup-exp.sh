@@ -38,15 +38,6 @@ function setup_host() {
 	devshell=$(nix build --no-link --print-out-paths "${FLAKE}#${machine}.exp-shell")
 	cat ${devshell} | grep -P '^declare -x PATH=' | sed 's/declare -x/export/g' | ssh ${host} 'cat >/tmp/devshell'
 
-	nix copy -s --to ssh://${host} "${FLAKE}#${machine}.exp-vm1"
-	nix copy -s --to ssh://${host} "${FLAKE}#${machine}.exp-vm2"
-
-	run_nixos_vm1=$(nix build --no-link --print-out-paths "${FLAKE}#${machine}.exp-vm1")/bin/run-nixos-vm
-	run_nixos_vm2=$(nix build --no-link --print-out-paths "${FLAKE}#${machine}.exp-vm2")/bin/run-nixos-vm
-
-	scp ${run_nixos_vm1} ${host}:/tmp/run-nixos-vm1
-	scp ${run_nixos_vm2} ${host}:/tmp/run-nixos-vm2
-
 	ssh ${host} ./eqds-cloudlab/${testbed}/setup-run.sh ${host_n} ${env}
 }
 

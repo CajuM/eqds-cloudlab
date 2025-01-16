@@ -2,7 +2,7 @@ function setup_exp {
 	rm -rf "${LOGS}"
 	mkdir -p "${LOGS}"
 
-	if [ ${reboot} -eq 1 ]; then
+	if [ "${reboot}" == "1" ]; then
 		reboot="--reboot"
 	fi
 
@@ -118,10 +118,6 @@ function do_exp {
 
 	for tx in ${stacks_tx}; do
 		for rx in ${stacks_rx}; do
-			if should_exclude ${rx}; then
-				continue
-			fi
-
 			for _ in $(seq 1 5); do
 				host2_log="${LOGS}/h2.${tx}-${rx}.${proto}.${mss}.${connections}.log"
 				host2_pid=$(eval "${rx}_${proto}_rx $tx $mss $connections '${host2_log}'")
@@ -146,7 +142,7 @@ function do_exp {
 }
 
 function kill_exp {
-	if [ ${reboot} -eq 1 ]; then
+	if [ "${reboot}" == "1" ]; then
 		reboot="--reboot"
 	fi
 

@@ -25,7 +25,7 @@ for host in $(seq 1 ${N_HOSTS}); do
 	host=$(eval "echo \$HOST${host}")
 
 	cat ${TOP}/common/kill-exp.in | ssh ${host}
-	if [ ${reboot} -eq 1 ]; then
+	if [ "${reboot}" == "1" ]; then
 		ssh ${host} reboot || true
 	fi
 done

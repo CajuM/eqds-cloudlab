@@ -39,7 +39,7 @@ f.write('''
 \\hline
 ''')
 
-f.write(f'tx & rx & ' + ' & '.join(f'MSS {c}B' for c in x_mss[key]) + ' \\\\\n')
+f.write(f'tx & rx & ' + ' & '.join(f'MSS {c}B' for c in x_mss) + ' \\\\\n')
 
 for key in keys:
     if (len(x_mss[key]) == 0) or (len(y_bps[key]) == 0):
@@ -78,7 +78,7 @@ f.write('''
 \\hline
 ''')
 
-f.write(f'tx & rx & ' + ' & '.join(f'MSS {c}B' for c in x_mss[key]) + ' \\\\\n')
+f.write(f'tx & rx & ' + ' & '.join(f'MSS {c}B' for c in x_mss) + ' \\\\\n')
 
 for key in keys:
     if (len(x_mss[key]) == 0) or (len(y_pps[key]) == 0):
