@@ -1,4 +1,4 @@
 ENV_NAME="localhost"
 
-HOST1="localhost"
-HOST1_MACHINE="skylake"
+HOST1="root@localhost"
+HOST1_MACHINE="znver2"

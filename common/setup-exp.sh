@@ -37,6 +37,14 @@ function setup_host() {
 	devshell=$(nix build --no-link --print-out-paths "${FLAKE}#${machine}.exp-shell")
 	cat ${devshell} | grep -P '^declare -x PATH=' | sed 's/declare -x/export/g' | ssh ${host} 'cat >/tmp/devshell'
 
+	nix copy -s --to ssh://${host} "${FLAKE}#${machine}.exp-vm${host_n}"
+	run_nixos_vm1=$(nix build --no-link --print-out-paths "${FLAKE}#${machine}.exp-vm1")
+	scp ${run_nixos_vm1}/bin/run-nixos-vm "${host}:/tmp/run-nixos-vm1"
+
+	nix copy -s --to ssh://${host} "${FLAKE}#${machine}.exp-vm${host_n}"
+	run_nixos_vm2=$(nix build --no-link --print-out-paths "${FLAKE}#${machine}.exp-vm2")
+	scp ${run_nixos_vm2}/bin/run-nixos-vm "${host}:/tmp/run-nixos-vm2"
+
 	ssh ${host} ./eqds-cloudlab/${testbed}/setup-run.sh ${host_n} ${env}
 }
 
@@ -51,4 +59,4 @@ setup_host 1 ${reboot} ${testbed_h1} &
 if [ $N_HOSTS == 2 ]; then setup_host 2 ${reboot} ${testbed_h2} & fi
 
 while ! $SSH1 true; do :; done
-while ! $SSH2 true; do :; done
+if [ $N_HOSTS == 2 ]; then while ! $SSH2 true; do :; done; fi

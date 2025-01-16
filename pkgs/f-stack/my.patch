@@ -129,10 +129,10 @@ index 3efc100b..6903daed 100644
  	return (mss);
  }
 diff --git a/freebsd/netinet/tcp_output.c b/freebsd/netinet/tcp_output.c
-index d4b5a328..f246a676 100644
+index d4b5a328..7e984e33 100644
 --- a/freebsd/netinet/tcp_output.c
 +++ b/freebsd/netinet/tcp_output.c
-@@ -1330,31 +1330,6 @@ send:
+@@ -1330,31 +1320,6 @@ send:
  		}
  	}
  #endif
@@ -179,10 +179,40 @@ index 9607abfd..604187ef 100644
                  *p = atol(value);
                  newconf->value = (void *)p;
 diff --git a/lib/ff_dpdk_if.c b/lib/ff_dpdk_if.c
-index 72317f1b..9d66f7b1 100644
+index 72317f1b..59fda6f7 100644
 --- a/lib/ff_dpdk_if.c
 +++ b/lib/ff_dpdk_if.c
-@@ -673,45 +673,16 @@ init_port_start(void)
+@@ -626,29 +626,6 @@ init_port_start(void)
+             rte_memcpy(pconf->mac,
+                 addr.addr_bytes, RTE_ETHER_ADDR_LEN);
+ 
+-            /* Set RSS mode */
+-            uint64_t default_rss_hf = ETH_RSS_PROTO_MASK;
+-            port_conf.rxmode.mq_mode = ETH_MQ_RX_RSS;
+-            port_conf.rx_adv_conf.rss_conf.rss_hf = default_rss_hf;
+-            if (dev_info.hash_key_size == 52) {
+-                rsskey = default_rsskey_52bytes;
+-                rsskey_len = 52;
+-            }
+-            if (ff_global_cfg.dpdk.symmetric_rss) {
+-                printf("Use symmetric Receive-side Scaling(RSS) key\n");
+-                rsskey = symmetric_rsskey;
+-            }
+-            port_conf.rx_adv_conf.rss_conf.rss_key = rsskey;
+-            port_conf.rx_adv_conf.rss_conf.rss_key_len = rsskey_len;
+-            port_conf.rx_adv_conf.rss_conf.rss_hf &= dev_info.flow_type_rss_offloads;
+-            if (port_conf.rx_adv_conf.rss_conf.rss_hf !=
+-                    ETH_RSS_PROTO_MASK) {
+-                printf("Port %u modified RSS hash function based on hardware support,"
+-                        "requested:%#"PRIx64" configured:%#"PRIx64"\n",
+-                        port_id, default_rss_hf,
+-                        port_conf.rx_adv_conf.rss_conf.rss_hf);
+-            }
+-
+             if (dev_info.tx_offload_capa & DEV_TX_OFFLOAD_MBUF_FAST_FREE) {
+                 port_conf.txmode.offloads |=
+                     DEV_TX_OFFLOAD_MBUF_FAST_FREE;
+@@ -673,53 +650,23 @@ init_port_start(void)
              }
              #endif
  
@@ -195,12 +225,12 @@ index 72317f1b..9d66f7b1 100644
 -                pconf->hw_features.rx_csum = 1;
 -            }
 -
-             if (ff_global_cfg.dpdk.tx_csum_offoad_skip == 0) {
-                 if ((dev_info.tx_offload_capa & DEV_TX_OFFLOAD_IPV4_CKSUM)) {
-                     printf("TX ip checksum offload supported\n");
-                     port_conf.txmode.offloads |= DEV_TX_OFFLOAD_IPV4_CKSUM;
-                     pconf->hw_features.tx_csum_ip = 1;
-                 }
+-            if (ff_global_cfg.dpdk.tx_csum_offoad_skip == 0) {
+-                if ((dev_info.tx_offload_capa & DEV_TX_OFFLOAD_IPV4_CKSUM)) {
+-                    printf("TX ip checksum offload supported\n");
+-                    port_conf.txmode.offloads |= DEV_TX_OFFLOAD_IPV4_CKSUM;
+-                    pconf->hw_features.tx_csum_ip = 1;
+-                }
 -
 -                if ((dev_info.tx_offload_capa & DEV_TX_OFFLOAD_UDP_CKSUM) &&
 -                    (dev_info.tx_offload_capa & DEV_TX_OFFLOAD_TCP_CKSUM)) {
@@ -208,10 +238,10 @@ index 72317f1b..9d66f7b1 100644
 -                    port_conf.txmode.offloads |= DEV_TX_OFFLOAD_UDP_CKSUM | DEV_TX_OFFLOAD_TCP_CKSUM;
 -                    pconf->hw_features.tx_csum_l4 = 1;
 -                }
-             } else {
-                 printf("TX checksum offoad is disabled\n");
-             }
- 
+-            } else {
+-                printf("TX checksum offoad is disabled\n");
+-            }
+-
 -            if (ff_global_cfg.dpdk.tso) {
 -                if (dev_info.tx_offload_capa & DEV_TX_OFFLOAD_TCP_TSO) {
 -                    printf("TSO is supported\n");
@@ -225,10 +255,62 @@ index 72317f1b..9d66f7b1 100644
 -                printf("TSO is disabled\n");
 -            }
 -
-             if (dev_info.reta_size) {
-                 /* reta size must be power of 2 */
-                 assert((dev_info.reta_size & (dev_info.reta_size - 1)) == 0);
-@@ -1251,7 +1222,7 @@ ff_veth_input(const struct ff_dpdk_if_context *ctx, struct rte_mbuf *pkt)
+-            if (dev_info.reta_size) {
+-                /* reta size must be power of 2 */
+-                assert((dev_info.reta_size & (dev_info.reta_size - 1)) == 0);
+-
+-                rss_reta_size[port_id] = dev_info.reta_size;
+-                printf("port[%d]: rss table size: %d\n", port_id,
+-                    dev_info.reta_size);
+-            }
++	    /* Set Rx checksum checking */
++	    if (ff_global_cfg.dpdk.tx_csum_offoad_skip == 0) {
++		    if ((dev_info.tx_offload_capa & DEV_TX_OFFLOAD_IPV4_CKSUM)) {
++			    printf("TX ip checksum offload supported\n");
++			    port_conf.txmode.offloads |= DEV_TX_OFFLOAD_IPV4_CKSUM;
++			    pconf->hw_features.tx_csum_ip = 1;
++		    }
++
++		    if ((dev_info.tx_offload_capa & DEV_TX_OFFLOAD_UDP_CKSUM) &&
++				    (dev_info.tx_offload_capa & DEV_TX_OFFLOAD_TCP_CKSUM)) {
++			    printf("TX TCP&UDP checksum offload supported\n");
++			    port_conf.txmode.offloads |= DEV_TX_OFFLOAD_UDP_CKSUM | DEV_TX_OFFLOAD_TCP_CKSUM;
++			    pconf->hw_features.tx_csum_l4 = 1;
++		    }
++	    } else {
++		    printf("TX checksum offoad is disabled\n");
++	    }
+ 
+             if (rte_eal_process_type() != RTE_PROC_PRIMARY) {
+                 continue;
+@@ -796,15 +743,6 @@ init_port_start(void)
+             if (ret < 0) {
+                 return ret;
+             }
+-    //RSS reta update will failed when enable flow isolate
+-    #ifndef FF_FLOW_ISOLATE
+-            if (nb_queues > 1) {
+-                /*
+-                 * FIXME: modify RSS set to FDIR
+-                 */
+-                set_rss_table(port_id, dev_info.reta_size, nb_queues);
+-            }
+-    #endif
+ 
+             /* Enable RX in promiscuous mode for the Ethernet device. */
+             if (ff_global_cfg.dpdk.promiscuous) {
+@@ -1240,18 +1178,10 @@ ff_dpdk_init(int argc, char **argv)
+ static void
+ ff_veth_input(const struct ff_dpdk_if_context *ctx, struct rte_mbuf *pkt)
+ {
+-    uint8_t rx_csum = ctx->hw_features.rx_csum;
+-    if (rx_csum) {
+-        if (pkt->ol_flags & (RTE_MBUF_F_RX_IP_CKSUM_BAD | RTE_MBUF_F_RX_L4_CKSUM_BAD)) {
+-            rte_pktmbuf_free(pkt);
+-            return;
+-        }
+-    }
+-
      void *data = rte_pktmbuf_mtod(pkt, void*);
      uint16_t len = rte_pktmbuf_data_len(pkt);
  
@@ -237,6 +319,93 @@ index 72317f1b..9d66f7b1 100644
      if (hdr == NULL) {
          rte_pktmbuf_free(pkt);
          return;
+@@ -1889,61 +1819,35 @@ ff_dpdk_if_send(struct ff_dpdk_if_context *ctx, void *m,
+     void *data = rte_pktmbuf_mtod(head, void*);
+ 
+     if (offload.ip_csum) {
+-        /* ipv6 not supported yet */
+-        struct rte_ipv4_hdr *iph;
+-        int iph_len;
+-        iph = (struct rte_ipv4_hdr *)(data + RTE_ETHER_HDR_LEN);
+-        iph_len = (iph->version_ihl & 0x0f) << 2;
++	/* ipv6 not supported yet */
++	struct rte_ipv4_hdr *iph;
++	int iph_len;
++	iph = (struct rte_ipv4_hdr *)(data + RTE_ETHER_HDR_LEN);
++	iph_len = (iph->version_ihl & 0x0f) << 2;
+ 
+-        head->ol_flags |= RTE_MBUF_F_TX_IP_CKSUM | RTE_MBUF_F_TX_IPV4;
+-        head->l2_len = RTE_ETHER_HDR_LEN;
+-        head->l3_len = iph_len;
++	head->ol_flags |= RTE_MBUF_F_TX_IP_CKSUM | RTE_MBUF_F_TX_IPV4;
++	head->l2_len = RTE_ETHER_HDR_LEN;
++	head->l3_len = iph_len;
+     }
+ 
+     if (ctx->hw_features.tx_csum_l4) {
+-        struct rte_ipv4_hdr *iph;
+-        int iph_len;
+-        iph = (struct rte_ipv4_hdr *)(data + RTE_ETHER_HDR_LEN);
+-        iph_len = (iph->version_ihl & 0x0f) << 2;
+-
+-        if (offload.tcp_csum) {
+-            head->ol_flags |= RTE_MBUF_F_TX_TCP_CKSUM;
+-            head->l2_len = RTE_ETHER_HDR_LEN;
+-            head->l3_len = iph_len;
+-        }
+-
+-        /*
+-         *  TCP segmentation offload.
+-         *
+-         *  - set the PKT_TX_TCP_SEG flag in mbuf->ol_flags (this flag
+-         *    implies PKT_TX_TCP_CKSUM)
+-         *  - set the flag PKT_TX_IPV4 or PKT_TX_IPV6
+-         *  - if it's IPv4, set the PKT_TX_IP_CKSUM flag and
+-         *    write the IP checksum to 0 in the packet
+-         *  - fill the mbuf offload information: l2_len,
+-         *    l3_len, l4_len, tso_segsz
+-         *  - calculate the pseudo header checksum without taking ip_len
+-         *    in account, and set it in the TCP header. Refer to
+-         *    rte_ipv4_phdr_cksum() and rte_ipv6_phdr_cksum() that can be
+-         *    used as helpers.
+-         */
+-        if (offload.tso_seg_size) {
+-            struct rte_tcp_hdr *tcph;
+-            int tcph_len;
+-            tcph = (struct rte_tcp_hdr *)((char *)iph + iph_len);
+-            tcph_len = (tcph->data_off & 0xf0) >> 2;
+-            tcph->cksum = rte_ipv4_phdr_cksum(iph, RTE_MBUF_F_TX_TCP_SEG);
+-
+-            head->ol_flags |= RTE_MBUF_F_TX_TCP_SEG;
+-            head->l4_len = tcph_len;
+-            head->tso_segsz = offload.tso_seg_size;
+-        }
+-
+-        if (offload.udp_csum) {
+-            head->ol_flags |= RTE_MBUF_F_TX_UDP_CKSUM;
+-            head->l2_len = RTE_ETHER_HDR_LEN;
+-            head->l3_len = iph_len;
+-        }
++	    struct rte_ipv4_hdr *iph;
++	    int iph_len;
++	    iph = (struct rte_ipv4_hdr *)(data + RTE_ETHER_HDR_LEN);
++	    iph_len = (iph->version_ihl & 0x0f) << 2;
++
++	    if (offload.tcp_csum) {
++		    head->ol_flags |= RTE_MBUF_F_TX_TCP_CKSUM;
++		    head->l2_len = RTE_ETHER_HDR_LEN;
++		    head->l3_len = iph_len;
++	
++	    }
++
++	    if (offload.udp_csum) {
++		    head->ol_flags |= RTE_MBUF_F_TX_UDP_CKSUM;
++		    head->l2_len = RTE_ETHER_HDR_LEN;
++		    head->l3_len = iph_len;
++	    }
+     }
+ 
+     ff_mbuf_free(m);
 diff --git a/lib/ff_dpdk_if.h b/lib/ff_dpdk_if.h
 index d930b8dd..ef8f3408 100644
 --- a/lib/ff_dpdk_if.h

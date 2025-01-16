@@ -1,5 +1,5 @@
 diff --git a/mtcp/src/api.c b/mtcp/src/api.c
-index c53714bc..e184d3bc 100644
+index c53714bc..a52b993c 100644
 --- a/mtcp/src/api.c
 +++ b/mtcp/src/api.c
 @@ -46,7 +46,7 @@ GetMTCPManager(mctx_t mctx)
@@ -11,27 +11,24 @@ index c53714bc..e184d3bc 100644
  		errno = EINVAL;
  		return NULL;
  	}
-@@ -1284,7 +1284,6 @@ mtcp_recv(mctx_t mctx, int sockid, char *buf, size_t len, int flags)
-         return ret;
- }
- /*----------------------------------------------------------------------------*/
--inline ssize_t
- mtcp_read(mctx_t mctx, int sockid, char *buf, size_t len)
- {
- 	return mtcp_recv(mctx, sockid, buf, len, 0);
 diff --git a/mtcp/src/core.c b/mtcp/src/core.c
-index b06c4d73..ed93ca33 100644
+index b06c4d73..7020bd22 100644
 --- a/mtcp/src/core.c
 +++ b/mtcp/src/core.c
-@@ -1273,7 +1273,7 @@ mtcp_create_context(int cpu)
+@@ -1273,13 +1273,6 @@ mtcp_create_context(int cpu)
  	mctx_t mctx;
  	int ret;
  
 -	if (cpu >=  CONFIG.num_cores) {
-+	if ((cpu <= 0) || (cpu > CONFIG.num_cores)) {
- 		TRACE_ERROR("Failed initialize new mtcp context. "
- 			    "Requested cpu id %d exceed the number of cores %d configured to use.\n",
- 			    cpu, CONFIG.num_cores);
+-		TRACE_ERROR("Failed initialize new mtcp context. "
+-			    "Requested cpu id %d exceed the number of cores %d configured to use.\n",
+-			    cpu, CONFIG.num_cores);
+-		return NULL;
+-	}
+-
+         /* check if mtcp_create_context() was already initialized */
+         if (g_logctx[cpu] != NULL) {
+                 TRACE_ERROR("%s was already initialized before!\n",
 diff --git a/mtcp/src/dpdk_module.c b/mtcp/src/dpdk_module.c
 index 76d6da8c..a8083b29 100644
 --- a/mtcp/src/dpdk_module.c
@@ -174,19 +171,20 @@ index 19e83f71..8e0d7f62 100644
  typedef struct log_buff
  {
 diff --git a/mtcp/src/include/mtcp_api.h b/mtcp/src/include/mtcp_api.h
-index 0a1ee40f..75074c90 100644
+index 0a1ee40f..b9b05bda 100644
 --- a/mtcp/src/include/mtcp_api.h
 +++ b/mtcp/src/include/mtcp_api.h
-@@ -124,7 +124,6 @@ int
+@@ -124,7 +124,7 @@ int
  mtcp_getpeername(mctx_t mctx, int sockid, struct sockaddr *addr,
  		 socklen_t *addrlen);
  
 -inline ssize_t
++ssize_t
  mtcp_read(mctx_t mctx, int sockid, char *buf, size_t len);
  
  ssize_t
 diff --git a/mtcp/src/io_module.c b/mtcp/src/io_module.c
-index 198a9887..e99d2ee6 100644
+index 198a9887..6713a6f2 100644
 --- a/mtcp/src/io_module.c
 +++ b/mtcp/src/io_module.c
 @@ -48,7 +48,6 @@
@@ -234,7 +232,7 @@ index 198a9887..e99d2ee6 100644
 -					    "-c",
 -					    cpumaskbuf,
 +					    "-l",
-+					    "0,1,2",
++					    "0,1",
  					    "-n",
  					    mem_channels,
  #if 0

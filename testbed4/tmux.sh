@@ -17,7 +17,7 @@ case $1 in
 		;;
 
 	testpmd)
-		${TOP}/testbed1/testpmd.sh
+		${TOP}/testbed4/testpmd.sh
 		;;
 
 	vm)
@@ -34,11 +34,12 @@ case $1 in
 			rm -rf ${TMPDIR}
 			mkdir -p ${TMPDIR}
 			cd ${TMPDIR}
+			sleep 1
 		done
 		;;
 
 	affinity)
-		while ! qemu-affinity -k 3 4 -- $(pgrep -f "qemu.*dpdk1" | head -n2 | tail -n1); do :; done
-		while ! qemu-affinity -k 5 6 -- $(pgrep -f "qemu.*dpdk2" | head -n2 | tail -n1); do :; done
+		while ! qemu-affinity -k 3 4 -- $(pgrep -f "qemu.*dpdk1" | head -n2 | tail -n1); do sleep 1; done
+		while ! qemu-affinity -k 5 6 -- $(pgrep -f "qemu.*dpdk2" | head -n2 | tail -n1); do sleep 1; done
 		;;
 esac

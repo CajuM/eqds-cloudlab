@@ -58,6 +58,8 @@ struct sock_event {
 
 int get_eventloop(uint16_t n_sockets, bool udp, int mss, uint8_t win_scale, struct in_addr *bind_ip, struct in_addr *connect_ip)
 {
+	n_sockets *= 2;
+
 	if (n_sockets > (UINT16_MAX - 1024))
 		return -1;
 
@@ -87,22 +89,22 @@ int get_eventloop(uint16_t n_sockets, bool udp, int mss, uint8_t win_scale, stru
 		((struct sock_event *) ev.data.ptr)->fd = sockfd;
 
 		if (idx % 2) {
-			((struct sock_event *) ev.data.ptr)->sock_type = udp ? ESTABLISHED : LISTENING;
-			ev.events = EPOLLIN;
-
-			if (!udp)
-				die(ndpip_listen(sockfd, 1024) >= 0);
-		} else {
 			struct sockaddr_in remote_addr = {
 				.sin_family = AF_INET,
 				.sin_addr = *connect_ip,
-				.sin_port = htons(1024 + idx) + 1
+				.sin_port = htons(1024 + idx - 1)
 			};
 
 			((struct sock_event *) ev.data.ptr)->sock_type = ESTABLISHED;
 			ev.events = EPOLLOUT;
 
 			die(ndpip_connect(sockfd, (struct sockaddr *) &remote_addr, sizeof(struct sockaddr_in)) >= 0);
+		} else {
+			((struct sock_event *) ev.data.ptr)->sock_type = udp ? ESTABLISHED : LISTENING;
+			ev.events = EPOLLIN;
+
+			if (!udp)
+				die(ndpip_listen(sockfd, 1024) >= 0);
 		}
 
 		ndpip_epoll_ctl(ret, EPOLL_CTL_ADD, sockfd, &ev);
@@ -326,7 +328,7 @@ int main(int argc, char **argv)
 	uint16_t n_sev = 0;
 
 	while (running) {
-		int n_events = ndpip_epoll_wait(ep, ev, connections, 0);
+		int n_events = ndpip_epoll_wait(ep, ev, connections, 1);
 		if (n_events < 0) {
 			perror("epoll");
 			goto ret;

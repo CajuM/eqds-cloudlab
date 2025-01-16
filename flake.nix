@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
   inputs.nixos-shell.url = "github:Mic92/nixos-shell";
   inputs.nixos-shell.inputs.nixpkgs.follows = "nixpkgs";
   inputs.utils.url = "github:numtide/flake-utils";
@@ -63,7 +63,7 @@
         in
         {
           inherit exp-shell;
-          devShell.default = import ./shell.nix;
+
           exp-vm1 = exp-vm1.config.system.build.vm;
           exp-vm2 = exp-vm2.config.system.build.vm;
         }
