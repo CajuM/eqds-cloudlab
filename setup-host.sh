@@ -19,7 +19,7 @@ ln -sf $HOME/.nix-profile/bin/* /usr/bin/
 
 (
     . /etc/default/grub
-    GRUB_CMDLINE_LINUX_DEFAULT="${GRUB_CMDLINE_LINUX_DEFAULT} isolcpus=1-5 nohz_full=1-5 rcu_nocbs=1-5 intel_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G hugepages=8 intel_idle.max_cstate=0 processor.max_cstate=0 intel_pstate=disable rcu_nocb_poll audit=0 net.ifnames=0 biosdevname=0"
+    GRUB_CMDLINE_LINUX_DEFAULT="${GRUB_CMDLINE_LINUX_DEFAULT} isolcpus=1-5 nohz_full=1-5 rcu_nocbs=1-5 amd_iommu=on iommu=pt default_hugepagesz=1G hugepagesz=1G hugepages=8 processor.max_cstate=0 rcu_nocb_poll audit=0"
     sed -i "s@GRUB_CMDLINE_LINUX_DEFAULT.*@GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"@g" /etc/default/grub
 )
 update-grub

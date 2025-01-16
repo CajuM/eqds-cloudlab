@@ -8,16 +8,16 @@
 
   in
   rec {
-    lib-ndpip = self.callPackage ../pkgs/lib-ndpip {
+    libndpip = self.callPackage ../pkgs/libndpip {
       #stdenv = dbgStdenv;
       stdenv = stdenv;
       dpdk = dpdk;
     };
-    eqds-tcp-perf = self.callPackage ../pkgs/eqds-tcp-perf {
-      inherit lib-ndpip;
+    libndpip-perf = self.callPackage ../pkgs/libndpip-perf {
+      inherit libndpip;
       #stdenv = dbgStdenv;
       stdenv = stdenv;
-      dpdk = lib-ndpip.dpdk;
+      dpdk = libndpip.dpdk;
     };
 
     f-stack = self.callPackage ../pkgs/f-stack { inherit stdenv; };

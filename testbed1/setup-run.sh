@@ -48,7 +48,7 @@ ip addr add 10.1.1.${SELF_ID}/24 dev ${SELF_MTCP_IFACE}
 ip link set ${SELF_MTCP_IFACE} down
 ls /sys/devices/system/cpu/cpu*/online | grep -vP "cpu([0-9]|1[0-5])/" | xargs -IIOTA sh -c 'echo 0 >IOTA'
 
-if [[ -n "${SELF_IFACE}" && -z "$(echo $SELF_IFACE | grep -P dpdk\d+)" ]]; then
+if [[ -n "$(ip link | grep ${SELF_IFACE}:)" && -z "$(echo $SELF_IFACE | grep -P dpdk\d+)" ]]; then
 	ethtool -A ${SELF_IFACE} rx off tx off
 fi
 
